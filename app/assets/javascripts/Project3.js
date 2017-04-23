@@ -30,41 +30,8 @@ function Plan(plan_name, catalog_year, major, student_name, current_semester, cu
     this.courses = courses;
 }
 
-function getYear() {
-    $.getJSON("judah.cedarville.edu/~gallaghd/ymm/ymmdb.php?fmt=json", function (data) {
-        $.each(data, function (index, element) {
-            $("#yearSelect").append("<option value=\"" + element + "\">" + element + "</option>");
-        });
-    });
-}
-
-function getMake() {
-    var holder = document.getElementById("yearSelect");
-    var year = holder.value;
-    $("#makeSelect").html("");
-    $("#modelSelect").html("");
-    $.getJSON("judah.cedarville.edu/~gallaghd/ymm/ymmdb.php?fmt=json&year=" + year, function (data) {
-        $.each(data, function (index, element) {
-            $("#makeSelect").append("<option value=\"" + element.id + "\">" + element.name + "</option>");
-        });
-    });
-}
-
-function getModel() {
-    var holder = document.getElementById("yearSelect");
-    var year = holder.value;
-    holder = document.getElementById("makeSelect");
-    var make = holder.value;
-    $("#modelSelect").html("");
-    $.getJSON("judah.cedarville.edu/~gallaghd/ymm/ymmdb.php?fmt=json&year=" + year + "&make=" + make, function (data) {
-        $.each(data, function (index, element) {
-            $("#modelSelect").append("<option value=\"" + element.id + "\">" + element.name + "</option>");
-        });
-    });
-}
-
 function initializeUR() {
-    $.getJSON("judah.cedarville.edu/~gallaghd/cs3220/termProject/getPlan.php", function (data) {
+    $.getJSON("1.json", function (data) {
         var catYear;
         var courseList = [];
         var planner = new Plan("Error", 2014, "Error", "Error", "SP", 2017, courseList);

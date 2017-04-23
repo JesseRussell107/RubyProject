@@ -9,8 +9,8 @@ $(document).ready(function () {
         paging: false,
         order: [1, 'asc'],
         ajax: {
-            url: 'judah.cedarville.edu/~gallaghd/cs3220/termProject/getCourseList.php',
-            dataSrc: ''
+            url: '1.json',
+            dataSrc: 'courses'
         },
         columns: [
             {data: 'name'},
