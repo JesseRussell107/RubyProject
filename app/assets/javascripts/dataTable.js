@@ -9,7 +9,7 @@ $(document).ready(function () {
         paging: false,
         order: [1, 'asc'],
         ajax: {
-            url: '/~gallaghd/cs3220/termProject/getCourseList.php',
+            url: 'judah.cedarville.edu/~gallaghd/cs3220/termProject/getCourseList.php',
             dataSrc: ''
         },
         columns: [

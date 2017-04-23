@@ -31,7 +31,7 @@ function Plan(plan_name, catalog_year, major, student_name, current_semester, cu
 }
 
 function getYear() {
-    $.getJSON("/~gallaghd/ymm/ymmdb.php?fmt=json", function (data) {
+    $.getJSON("judah.cedarville.edu/~gallaghd/ymm/ymmdb.php?fmt=json", function (data) {
         $.each(data, function (index, element) {
             $("#yearSelect").append("<option value=\"" + element + "\">" + element + "</option>");
         });
@@ -43,7 +43,7 @@ function getMake() {
     var year = holder.value;
     $("#makeSelect").html("");
     $("#modelSelect").html("");
-    $.getJSON("/~gallaghd/ymm/ymmdb.php?fmt=json&year=" + year, function (data) {
+    $.getJSON("judah.cedarville.edu/~gallaghd/ymm/ymmdb.php?fmt=json&year=" + year, function (data) {
         $.each(data, function (index, element) {
             $("#makeSelect").append("<option value=\"" + element.id + "\">" + element.name + "</option>");
         });
@@ -56,7 +56,7 @@ function getModel() {
     holder = document.getElementById("makeSelect");
     var make = holder.value;
     $("#modelSelect").html("");
-    $.getJSON("/~gallaghd/ymm/ymmdb.php?fmt=json&year=" + year + "&make=" + make, function (data) {
+    $.getJSON("judah.cedarville.edu/~gallaghd/ymm/ymmdb.php?fmt=json&year=" + year + "&make=" + make, function (data) {
         $.each(data, function (index, element) {
             $("#modelSelect").append("<option value=\"" + element.id + "\">" + element.name + "</option>");
         });
@@ -64,7 +64,7 @@ function getModel() {
 }
 
 function initializeUR() {
-    $.getJSON("/~gallaghd/cs3220/termProject/getPlan.php", function (data) {
+    $.getJSON("judah.cedarville.edu/~gallaghd/cs3220/termProject/getPlan.php", function (data) {
         var catYear;
         var courseList = [];
         var planner = new Plan("Error", 2014, "Error", "Error", "SP", 2017, courseList);
