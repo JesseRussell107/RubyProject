@@ -10,12 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170421205732) do
+ActiveRecord::Schema.define(version: 20170424005352) do
 
   create_table "courses", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "course_id"
+    t.integer  "credits"
+    t.integer  "year"
+    t.string   "semester"
   end
 
   create_table "plans", force: :cascade do |t|
@@ -23,6 +27,7 @@ ActiveRecord::Schema.define(version: 20170421205732) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "user_id"
+    t.integer  "startyear"
   end
 
   create_table "term_courses", force: :cascade do |t|
@@ -58,6 +63,7 @@ ActiveRecord::Schema.define(version: 20170421205732) do
     t.datetime "updated_at",                          null: false
     t.string   "login"
     t.string   "role",                   default: ""
+    t.string   "major"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["login"], name: "index_users_on_login", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
