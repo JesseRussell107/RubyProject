@@ -71,8 +71,11 @@
                     </div>
                 </div>
                 <div id="UR" >
-                    <!--Should never see unless script fails-->
-                    Error loading DHTML
+                <% @plan.terms.each do |term|%>
+                    <div>Yo!</div>
+                    <br>
+                <%end%>
+
                 </div>
             </div>
             <div id="below">
