@@ -34,8 +34,8 @@ course2 = Course.create(name: "Object Oriented Design", course_id: "CS-1220", cr
 course3 = Course.create(name: "Java Programming", course_id: "CS-2210", credits: 3)
 
 #stick 'em together
-Term_course.create(term_id: term1.id, course_id: course1.id)
-Term_course.create(term_id: term1.id, course_id: course2.id)
-Term_course.create(term_id: term2.id, course_id: course3.id)
+TermCourse.create(term_id: term1.id, course_id: course1.id)
+TermCourse.create(term_id: term1.id, course_id: course2.id)
+TermCourse.create(term_id: term2.id, course_id: course3.id)
 
 
