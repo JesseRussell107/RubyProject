@@ -20,5 +20,22 @@ user2.password_confirmation = "password"
 user2.save!
 
 #give joe a couple of plans
-Plan.create(user_id: user1.id, name: "Plan1")
-Plan.create(user_id: user1.id, name: "Plan2")
+plan1 = Plan.create(user_id: user1.id, name: "Plan1", startyear: 2015)
+plan2 = Plan.create(user_id: user1.id, name: "Plan2", startyear: 2016)
+
+#give joe some terms
+term1 = Term.create(plan_id: plan1.id, semester: "Fall", year: 2015)
+term2 = Term.create(plan_id: plan1.id, semester: "Spring", year: 2016)
+term3 = Term.create(plan_id: plan1.id, semester: "Summer", year: 2016)
+
+#give joe some courses
+course1 = Course.create(name: "C++ Programming", course_id: "CS-1210", credits: 3)
+course2 = Course.create(name: "Object Oriented Design", course_id: "CS-1220", credits: 3)
+course3 = Course.create(name: "Java Programming", course_id: "CS-2210", credits: 3)
+
+#stick 'em together
+Term_course.create(term_id: term1.id, course_id: course1.id)
+Term_course.create(term_id: term1.id, course_id: course2.id)
+Term_course.create(term_id: term2.id, course_id: course3.id)
+
+

@@ -3,9 +3,9 @@ json.url plan_url(plan, format: :json)
 
 json.student current_user.login
 json.planName :name
-json.major "Computer Science"
-json.catalogYear 
-json.courses  do |terms|
+json.major current_user.major
+json.catalogYear plan.startyear
+json.courses do |terms|
     json.
 
     
