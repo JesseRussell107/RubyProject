@@ -22,9 +22,12 @@
             <span id="plan-IDname"></span>
         </p>
         <p class="heading">
-            Major:<br/>
-            Plan:
+            <!--TODO: Support multiple majors and minors -->
+            Major: <%= @plan.user.major %><br/>
+            Plan: <%= @plan.name %>
         </p>
     </div>
-    <h1 id="title"><img src="img/Ape.png" alt="Whoops...." style="width:112px;height:46px;"></h1>
+    <h1 id="title">
+        <%= image_tag("Ape.png", width: "112px", height: "46px")%>
+    </h1>
 </header>
