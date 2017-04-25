@@ -38,16 +38,49 @@ plan2 = Plan.create(user_id: user1.id, name: "Plan2", startyear: 2016)
 term1 = Term.create(plan_id: plan1.id, semester: "Fall", year: 2015)
 term2 = Term.create(plan_id: plan1.id, semester: "Spring", year: 2016)
 term3 = Term.create(plan_id: plan1.id, semester: "Summer", year: 2016)
+term4 = Term.create(plan_id: plan1.id, semester: "Fall", year: 2016)
+term5 = Term.create(plan_id: plan1.id, semester: "Spring", year: 2017)
+term6 = Term.create(plan_id: plan1.id, semester: "Summer", year: 2017)
+term7 = Term.create(plan_id: plan1.id, semester: "Fall", year: 2017)
+term8 = Term.create(plan_id: plan1.id, semester: "Spring", year: 2018)
+term9 = Term.create(plan_id: plan1.id, semester: "Summer", year: 2018)
+term10 = Term.create(plan_id: plan1.id, semester: "Fall", year: 2018)
+term11 = Term.create(plan_id: plan1.id, semester: "Spring", year: 2019)
+term12 = Term.create(plan_id: plan1.id, semester: "Summer", year: 2019)
 
 #give joe some courses
 course1 = Course.create(name: "C++ Programming", course_id: "CS-1210", credits: 3)
 course2 = Course.create(name: "Object Oriented Design", course_id: "CS-1220", credits: 3)
 course3 = Course.create(name: "Java Programming", course_id: "CS-2210", credits: 3)
+course11 = Course.create(name: "C++ Programming", course_id: "CS-1210", credits: 3)
+course21 = Course.create(name: "Calc I", course_id: "MATH-17100", credits: 5)
+course31 = Course.create(name: "Algorithms", course_id: "CS-3410", credits: 3)
+course12 = Course.create(name: "Compiler", course_id: "CS-3510", credits: 3)
+course22 = Course.create(name: "Computer Architecture", course_id: "ENCP-3210", credits: 3)
+course32 = Course.create(name: "Computer Graphics", course_id: "CS-4710", credits: 3)
+course14 = Course.create(name: "Databases", course_id: "CS-3610", credits: 3)
+course24 = Course.create(name: "DLD", course_id: "ENCP-1010", credits: 3)
+course34 = Course.create(name: "O/S", course_id: "CS-3220", credits: 3)
+course15 = Course.create(name: "Parallel Computing", course_id: "CS-4410", credits: 3)
+course25 = Course.create(name: "Software Engineering I", course_id: "CS-4810", credits: 3)
+course35 = Course.create(name: "Software Engineering II", course_id: "CS-4820", credits: 3)
 
 #stick 'em together
 TermCourse.create(term_id: term1.id, course_id: course1.id)
 TermCourse.create(term_id: term1.id, course_id: course2.id)
 TermCourse.create(term_id: term2.id, course_id: course3.id)
+TermCourse.create(term_id: term2.id, course_id: course11.id)
+TermCourse.create(term_id: term4.id, course_id: course21.id)
+TermCourse.create(term_id: term4.id, course_id: course31.id)
+TermCourse.create(term_id: term5.id, course_id: course12.id)
+TermCourse.create(term_id: term7.id, course_id: course22.id)
+TermCourse.create(term_id: term8.id, course_id: course32.id)
+TermCourse.create(term_id: term10.id, course_id: course14.id)
+TermCourse.create(term_id: term11.id, course_id: course24.id)
+TermCourse.create(term_id: term5.id, course_id: course34.id)
+TermCourse.create(term_id: term7.id, course_id: course15.id)
+TermCourse.create(term_id: term10.id, course_id: course25.id)
+TermCourse.create(term_id: term11.id, course_id: course35.id)
 
 user3 = User.new
 user3.login = "admin"
@@ -82,6 +115,14 @@ user6.password = "password"
 user6.password_confirmation = "password"
 user6.roles << faculty
 user6.save!
+
+user7 = User.new
+user7.login = "jerry"
+user7.email = "mrmcawesome@gmail.com"
+user7.password = "password"
+user7.password_confirmation = "password"
+user7.roles << student
+user7.save!
 
 #make some plans
 Plan.create(user_id: user2.id, name: "Test")
