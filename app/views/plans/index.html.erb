@@ -5,6 +5,9 @@
 <table>
   <thead>
     <tr>
+      <% if ((current_user.role? :faculty) || (current_user.role? :admin)) %>
+        <th><</th>
+      <% end %>
       <th>Name</th>
       <th colspan="3"></th>
     </tr>
@@ -14,6 +17,9 @@
   <% if user_signed_in? %>
     <% @plans.each do |plan| %>
       <tr>
+        <% if ((current_user.role? :faculty) || (current_user.role? :admin)) %>
+          <td><%= plan.user.login %></td>
+        <% end %>
         <td><%= plan.name %></td>
         <td><%= link_to 'Show', plan %></td>
         <td><%= link_to 'Edit', edit_plan_path(plan) %></td>
