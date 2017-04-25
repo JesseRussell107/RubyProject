@@ -2,11 +2,13 @@ class PlansController < ApplicationController
   before_action :authenticate_user!
   before_action :set_plan, only: [:show, :edit, :update, :destroy]
 
+  layout :resolve_layout
+
   # GET /plans
   # GET /plans.json
   def index
     @plans = Plan.all
-    if (current_user.role? :student) 
+    if not (current_user.role? :faculty) || (current_user.role? :admin)
       @plans = Plan.where(user_id: current_user.id)
     end
   end
@@ -75,5 +77,14 @@ class PlansController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def plan_params
       params.require(:plan).permit(:startyear, :name)
+    end
+
+    def resolve_layout
+      case action_name
+      when "show"
+        "show"
+      else
+        "application"
+      end
     end
 end
