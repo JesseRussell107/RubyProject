@@ -6,7 +6,7 @@ class PlansController < ApplicationController
   # GET /plans.json
   def index
     @plans = Plan.all
-    if (current_user.role? :student) 
+    if not (current_user.role? :faculty) || (current_user.role? :admin)
       @plans = Plan.where(user_id: current_user.id)
     end
   end
