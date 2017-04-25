@@ -116,6 +116,14 @@ user6.password_confirmation = "password"
 user6.roles << faculty
 user6.save!
 
+user7 = User.new
+user7.login = "jerry"
+user7.email = "mrmcawesome@gmail.com"
+user7.password = "password"
+user7.password_confirmation = "password"
+user7.roles << student
+user7.save!
+
 #make some plans
 Plan.create(user_id: user2.id, name: "Test")
 Plan.create(user_id: user2.id, name: "NoTest")
