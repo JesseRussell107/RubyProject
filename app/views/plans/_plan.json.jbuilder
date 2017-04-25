@@ -17,6 +17,4 @@ json.terms @plan.terms do |term|
 end
 
 
-
-    
-    
+json.extract! @courses, :name

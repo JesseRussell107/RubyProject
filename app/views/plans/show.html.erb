@@ -70,15 +70,18 @@
                         <div>Tacos</div>
                     </div>
                 </div>
-                <div id="UR" >
+                <div id="UR">
                 <% @plan.terms.each do |term| %>
-                <div>
-                   <%= term.semester + " " + term.year.to_s %> 
-                   <br>
-                   <% term.courses.each do |course| %>
-                        <%= course.name + " " + course.credits.to_s %>
-                        <br>
-                    <% end %> 
+                <div class="term">
+                <div class="year">
+                <%= term.semester + " " + term.year.to_s %> 
+                </div>
+                <div class="courses">
+                <% term.courses.each do |course| %>
+                     <%= course.name + " " + course.credits.to_s %>
+                     <br>
+                <% end %> 
+                </div>
                 </div>
                 <% end %>
                 
@@ -93,11 +96,17 @@
                             <tr>
                                 <th>Name</th>
                                 <th>Number</th>
-                                <th>Description</th>
                                 <th>Credits</th>
                             </tr>
                         </thead>
                         <tbody>
+                            <% @courses.each do |course| %>
+                            <tr>
+                                <td><%= course.name %></td>
+                                <td><%= course.course_id %></td>
+                                <td><%= course.credits %></td>
+                            </tr>
+                            <% end %>
                         </tbody>
                     </table>
                 </div>

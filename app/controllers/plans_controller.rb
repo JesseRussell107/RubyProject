@@ -14,11 +14,7 @@ class PlansController < ApplicationController
   # GET /plans/1
   # GET /plans/1.json
   def show
-    # Jesse's Code
-    # @terms = Term.where(plan_id: @plan)
-    # @termcourse = TermCourse.where(term_id: @terms.id)
-    # @courses = Course.where(id: @termcourse.course_id)
-    #/Jesse's Code
+    @courses = Course.select(:name, :course_id, :credits).distinct
   end
 
   # GET /plans/new
