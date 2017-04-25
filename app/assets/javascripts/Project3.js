@@ -30,7 +30,7 @@ function Plan(plan_name, catalog_year, major, student_name, current_semester, cu
     this.courses = courses;
 }
 
-function initializeUR() {
+/*function initializeUR() {
     $.getJSON("1.json", function (data) {
         var catYear;
         var courseList = [];
@@ -135,7 +135,8 @@ function initializeUR() {
             } else if (s === "SP") {
                 var yr = c.year - 1;
                 planner.years[yr.toString()].sp[iden] = courseList[i];
-            } else /* SU */ {
+            } else //SU  
+            {
                 var yr = c.year - 1;
                 planner.years[yr.toString()].su[iden] = courseList[i];
             }
@@ -211,3 +212,4 @@ function initializeUR() {
     });
 }
 ;
+*/

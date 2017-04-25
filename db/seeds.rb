@@ -18,6 +18,7 @@ user1.email = "joe@cedarville.edu"
 user1.password = "password"
 user1.password_confirmation = "password"
 user1.roles << student
+user1.major = "Computer Science"
 user1.save!
 
 user2 = User.new
@@ -26,6 +27,7 @@ user2.email = "pete@cedarville.edu"
 user2.password = "password"
 user2.password_confirmation = "password"
 user2.roles << student
+user2.major = "Psychology"
 user2.save!
 
 #give joe a couple of plans

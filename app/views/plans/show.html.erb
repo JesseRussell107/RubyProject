@@ -71,11 +71,17 @@
                     </div>
                 </div>
                 <div id="UR" >
-                <% @plan.terms.each do |term|%>
-                    <div><%= term.semester + " " + term.year.to_s + " " + term.course.courseID %></div>
-                    <br>
-                <%end%>
-
+                <% @plan.terms.each do |term| %>
+                <div>
+                   <%= term.semester + " " + term.year.to_s %> 
+                   <br>
+                   <% term.courses.each do |course| %>
+                        <%= course.name + " " + course.credits.to_s %>
+                        <br>
+                    <% end %> 
+                </div>
+                <% end %>
+                
                 </div>
             </div>
             <div id="below">
