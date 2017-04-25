@@ -2,9 +2,10 @@ json.extract! plan, :id, :name, :created_at, :updated_at
 json.url plan_url(plan, format: :json)
 
 json.student current_user.login
-json.planName :name
+json.planName @plan.name
 json.major current_user.major
 json.catalogYear @plan.startyear
+json.currTerm "Spring"
 json.terms @plan.terms do |term|
     json.semester term.semester
     json.year term.year

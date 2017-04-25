@@ -30,7 +30,7 @@ function Plan(plan_name, catalog_year, major, student_name, current_semester, cu
     this.courses = courses;
 }
 
-/*function initializeUR() {
+function initializeUR() {
     $.getJSON("1.json", function (data) {
         var catYear;
         var courseList = [];
@@ -51,18 +51,20 @@ function Plan(plan_name, catalog_year, major, student_name, current_semester, cu
         }
 
         //Build courses
-        $.each(data.courses, function (index, element) {
+        $.each(data.terms, function (index, element) {
             var smester; //not a typo
-            if (element.term == "Spring") {
+            if (element.semester == "Spring") {
                 smester = "SP";
-            } else if (element.term == "Fall") {
+            } else if (element.semester == "Fall") {
                 smester = "FA";
             } else { //Summer
                 smester = "SU";
             }
-
-            var c = new Course(element.name, element.number, element.credits, smester, element.year);
-            courseList.push(c);
+            var yr = element.year;
+            $.each(element.courses, function (index, element){
+                var c = new Course(element.name, element.courseID, element.credits, smester, yr);
+                courseList.push(c);
+            });
 
         });
 
@@ -212,4 +214,3 @@ function Plan(plan_name, catalog_year, major, student_name, current_semester, cu
     });
 }
 ;
-*/
