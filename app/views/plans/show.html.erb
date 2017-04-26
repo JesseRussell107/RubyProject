@@ -47,26 +47,10 @@
                 <div>Tacos</div>
             </div>
         </div>
-        <div id="UR">
-        <% @plan.terms.each do |term| %>
-        <div class="term">
-        <div class="year">
-        <%= term.semester + " " + term.year.to_s %> 
-        </div>
-        <div class="courses">
-        <% term.courses.each do |course| %>
-                <%= course.name + " " + course.credits.to_s %>
-                <br>
-        <% end %> 
-        </div>
-        </div>
-        <% end %>
-        
-        </div>
+        <div id="UR"></div>
     </div>
     <div id="below">
-        <div id="BL">
-        </div>
+        <div id="BL"></div>
         <div id="BR">
             <table id="search-table" class="display compact nowrap">
                 <thead>
