@@ -17,12 +17,15 @@ json.terms @plan.terms do |term|
     json.semester term.semester
     json.year term.year
     json.courses term.courses do |course| 
-    # next if (term_course.term_id == term.id && term_course.course_id == course.course_id)
         json.name course.name
         json.courseID course.course_id
         json.credits course.credits
     end
 end
 
-
-json.extract! @courses, :name
+json.courses @courses do |course|
+    json.name course.name
+    json.courseID course.course_id
+    json.credits course.credits
+    json.description course.description
+end

@@ -47,6 +47,7 @@
                 <div>Tacos</div>
             </div>
         </div>
+        <div id="plannum" style="display: none"><%= @plan.id %></div>
         <div id="UR"></div>
     </div>
     <div id="below">
@@ -58,16 +59,10 @@
                         <th>Name</th>
                         <th>Number</th>
                         <th>Credits</th>
+                        <th>Decription</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <% @courses.each do |course| %>
-                    <tr>
-                        <td><%= course.name %></td>
-                        <td><%= course.course_id %></td>
-                        <td><%= course.credits %></td>
-                    </tr>
-                    <% end %>
+                <tbody id="search-body">
                 </tbody>
             </table>
         </div>

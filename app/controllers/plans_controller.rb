@@ -11,12 +11,13 @@ class PlansController < ApplicationController
     if not (current_user.role? :faculty) || (current_user.role? :admin)
       @plans = Plan.where(user_id: current_user.id)
     end
+    
   end
 
   # GET /plans/1
   # GET /plans/1.json
   def show
-    @courses = Course.select(:name, :course_id, :credits).distinct
+    @courses = Course.select(:name, :course_id, :credits, :description).distinct
   end
 
   # GET /plans/new
@@ -71,7 +72,11 @@ class PlansController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_plan
+      case params[:id]
+      when "course"
+      else 
       @plan = Plan.find(params[:id])
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
