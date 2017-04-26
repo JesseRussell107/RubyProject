@@ -30,17 +30,17 @@ function Plan(plan_name, catalog_year, major, student_name, current_semester, cu
     this.courses = courses;
 }
 
-/*function initializeUR() {
+function initializeUR() {
     $.getJSON("1.json", function (data) {
         var catYear;
         var courseList = [];
         var planner = new Plan("Error", 2014, "Error", "Error", "SP", 2017, courseList);
 
-        $("#plan-name").append(data.student);
+        //$("#plan-name").append(data.student);
         catYear = data.catalogYear;
-        $("#plan-term").append(catYear);
-        $("#plan-majors").append(data.major);
-        $("#plan-IDname").append(data.planName);
+        //$("#plan-term").append(catYear);
+        //$("#plan-majors").append(data.major);
+        //$("#plan-IDname").append(data.planName);
         var season;
         if (data.currTerm == "Spring") {
             season = "SP";
@@ -51,72 +51,24 @@ function Plan(plan_name, catalog_year, major, student_name, current_semester, cu
         }
 
         //Build courses
-        $.each(data.courses, function (index, element) {
+        $.each(data.terms, function (index, element) {
             var smester; //not a typo
-            if (element.term == "Spring") {
+            if (element.semester == "Spring") {
                 smester = "SP";
-            } else if (element.term == "Fall") {
+            } else if (element.semester == "Fall") {
                 smester = "FA";
             } else { //Summer
                 smester = "SU";
             }
-
-            var c = new Course(element.name, element.number, element.credits, smester, element.year);
-            courseList.push(c);
+            var yr = element.year;
+            $.each(element.courses, function (index, element){
+                var c = new Course(element.name, element.courseID, element.credits, smester, yr);
+                courseList.push(c);
+            });
 
         });
 
-
-
         planner = new Plan(data.planName, data.catalogYear, data.major, data.student, season, data.currYear, courseList);
-
-
-
-//    var courses = [
-//        new Course("C++ Programming", "CS-1210", 2, "FA", 2014),
-//        new Course("MOMM Episode 1", "HON-1010", 5, "FA", 2014),
-//        new Course("DLD", "EGCP-1010", 3, "FA", 2014),
-//        new Course("Calc 1", "MATH-1710", 5, "FA", 2014),
-//        new Course("Engineering Profession", "EGGN-1110", 1, "FA", 2014),
-//        new Course("Comp", "ENG-1400", 3, "FA", 2014),
-//        new Course("MOMM Episode 2", "HON-1020", 5, "SP", 2015),
-//        new Course("Calc 2", "MATH-1720", 5, "SP", 2015),
-//        new Course("Spifo", "BEGE-1720", 3, "SP", 2015),
-//        new Course("Backpacking", "PEAL-1420", 1, "SP", 2015),
-//        new Course("Old Testament", "BEGE-2730", 3, "SU", 2015),
-//        new Course("Speech", "COM-1100", 3, "FA", 2015),
-//        new Course("Java", "CS-2210", 3, "FA", 2015),
-//        new Course("Politics & American Culture", "GSS-1100", 3, "FA", 2015),
-//        new Course("C++ Object Oriented", "CS-1220", 3, "SP", 2015),
-//        new Course("New Testament", "BTGE-2740", 3, "FA", 2015),
-//        new Course("Chem for Engineers", "CHEM-1050", 3.5, "FA", 2015),
-//        new Course("Operating Systems", "CS-3310", 3, "SP", 2016),
-//        new Course("Foundations of Security", "CS-3350", 3, "SP", 2016),
-//        new Course("Intro to Bio", "BIO-1000", 3, "SP", 2016),
-//        new Course("Discrete Math", "MATH-2510", 3, "SP", 2016),
-//        new Course("Gen Physics 1", "PHYS-2110", 4, "SP", 2016),
-//        new Course("Theology 1", "BTGE-3755", 3, "FA", 2016),
-//        new Course("Algorithms", "CS-3410", 3, "FA", 2016),
-//        new Course("Prob & Stats", "MATH-3110", 3, "FA", 2016),
-//        new Course("PACL", "PEF-1990", 2, "FA", 2016),
-//        new Course("Gen Physics 2", "PHYS-2120", 4, "FA", 2016),
-//        new Course("Intro to Graphics", "BRDM-2350", 3, "SP", 2017),
-//        new Course("This Class", "CS-3220", 3, "SP", 2017),
-//        new Course("A Cool Class", "CS-3510", 3, "SP", 2017),
-//        new Course("Databases", "CS-3610", 3, "SP", 2017),
-//        new Course("Prinicples of Animation", "BRDM-3630", 3, "SP", 2017),
-//        new Course("Senior Seminar", "EGGN-4010", 0, "FA", 2017),
-//        new Course("Computer Networks", "EGCP-4310", 3, "FA", 2017),
-//        new Course("Computer Graphics", "CS-4710", 3, "FA", 2017),
-//        new Course("Senior Design", "CS-4810", 3, "FA", 2017),
-//        new Course("Animation Practicum", "BRDM-3765", 1, "FA", 2017),
-//        new Course("Cultural Anthropology", "ANTH-1800", 3, "FA", 2017),
-//        new Course("Senior Design", "CS-4820", 4, "SP", 2018),
-//        new Course("Professional Ethics", "EGGN-3210", 3, "SP", 2018),
-//        new Course("Computer Architecture", "EGCP-3210", 3, "SP", 2018),
-//        new Course("Theology 2", "BTGE-3765", 3, "SP", 2018),
-//        new Course("Intro to Lit", "LIT-2300", 3, "SP", 2018)
-//    ];
 
         planner.years = [];
         for (i = 0; i < courseList.length; i++) {
@@ -212,4 +164,3 @@ function Plan(plan_name, catalog_year, major, student_name, current_semester, cu
     });
 }
 ;
-*/
