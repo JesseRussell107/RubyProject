@@ -5,7 +5,13 @@ json.student current_user.login
 json.planName @plan.name
 json.major current_user.major
 json.catalogYear @plan.startyear
-json.currTerm "Spring"
+if (Date.today.month < 5)
+    json.currTerm "Spring"
+elsif (Date.today.month < 8)
+    json.currTerm "Summer"
+else
+    json.currTerm "Fall"
+end
 json.currYear DateTime.now.year
 json.terms @plan.terms do |term|
     json.semester term.semester
