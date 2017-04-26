@@ -6,6 +6,7 @@ json.planName @plan.name
 json.major current_user.major
 json.catalogYear @plan.startyear
 json.currTerm "Spring"
+json.currYear DateTime.now.year
 json.terms @plan.terms do |term|
     json.semester term.semester
     json.year term.year
