@@ -30,7 +30,7 @@ function Plan(plan_name, catalog_year, major, student_name, current_semester, cu
     this.courses = courses;
 }
 
-/*function initializeUR() {
+function initializeUR() {
     $.getJSON("1.json", function (data) {
         var catYear;
         var courseList = [];
@@ -212,4 +212,4 @@ function Plan(plan_name, catalog_year, major, student_name, current_semester, cu
     });
 }
 ;
-*/
+
