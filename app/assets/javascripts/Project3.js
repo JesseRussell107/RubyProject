@@ -36,11 +36,11 @@ function initializeUR() {
         var courseList = [];
         var planner = new Plan("Error", 2014, "Error", "Error", "SP", 2017, courseList);
 
-        $("#plan-name").append(data.student);
+        //$("#plan-name").append(data.student);
         catYear = data.catalogYear;
-        $("#plan-term").append(catYear);
-        $("#plan-majors").append(data.major);
-        $("#plan-IDname").append(data.planName);
+        //$("#plan-term").append(catYear);
+        //$("#plan-majors").append(data.major);
+        //$("#plan-IDname").append(data.planName);
         var season;
         if (data.currTerm == "Spring") {
             season = "SP";
