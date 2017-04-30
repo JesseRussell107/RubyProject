@@ -48,6 +48,19 @@ term10 = Term.create(plan_id: plan1.id, semester: "Fall", year: 2018)
 term11 = Term.create(plan_id: plan1.id, semester: "Spring", year: 2019)
 term12 = Term.create(plan_id: plan1.id, semester: "Summer", year: 2019)
 
+term13 = Term.create(plan_id: plan2.id, semester: "Fall", year: 2016)
+term23 = Term.create(plan_id: plan2.id, semester: "Spring", year: 2017)
+term33 = Term.create(plan_id: plan2.id, semester: "Summer", year: 2017)
+term43 = Term.create(plan_id: plan2.id, semester: "Fall", year: 2017)
+term53 = Term.create(plan_id: plan2.id, semester: "Spring", year: 2018)
+term63 = Term.create(plan_id: plan2.id, semester: "Summer", year: 2018)
+term73 = Term.create(plan_id: plan2.id, semester: "Fall", year: 2018)
+term83 = Term.create(plan_id: plan2.id, semester: "Spring", year: 2019)
+term93 = Term.create(plan_id: plan2.id, semester: "Summer", year: 2019)
+term103 = Term.create(plan_id: plan2.id, semester: "Fall", year: 2019)
+term113 = Term.create(plan_id: plan2.id, semester: "Spring", year: 2020)
+term123 = Term.create(plan_id: plan2.id, semester: "Summer", year: 2020)
+
 #give joe some courses
 course1 = Course.create(name: "C++ Programming", course_id: "CS-1210", credits: 3, description: "Description", course_type: "GenEd")
 course2 = Course.create(name: "Object Oriented Design", course_id: "CS-1220", credits: 3, description: "Description", course_type: "Major")
@@ -81,6 +94,23 @@ TermCourse.create(term_id: term5.id, course_id: course34.id)
 TermCourse.create(term_id: term7.id, course_id: course15.id)
 TermCourse.create(term_id: term10.id, course_id: course25.id)
 TermCourse.create(term_id: term11.id, course_id: course35.id)
+
+# same as Plan1 but missing GenEd "History of Potato"
+TermCourse.create(term_id: term13.id, course_id: course1.id)
+TermCourse.create(term_id: term13.id, course_id: course2.id)
+TermCourse.create(term_id: term23.id, course_id: course3.id)
+#Die, Potato!
+TermCourse.create(term_id: term43.id, course_id: course21.id)
+TermCourse.create(term_id: term43.id, course_id: course31.id)
+TermCourse.create(term_id: term53.id, course_id: course12.id)
+TermCourse.create(term_id: term73.id, course_id: course22.id)
+TermCourse.create(term_id: term83.id, course_id: course32.id)
+TermCourse.create(term_id: term103.id, course_id: course14.id)
+TermCourse.create(term_id: term113.id, course_id: course24.id)
+TermCourse.create(term_id: term53.id, course_id: course34.id)
+TermCourse.create(term_id: term73.id, course_id: course15.id)
+TermCourse.create(term_id: term103.id, course_id: course25.id)
+TermCourse.create(term_id: term113.id, course_id: course35.id)
 
 #extraneous users
 user3 = User.new

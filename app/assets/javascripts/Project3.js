@@ -196,7 +196,7 @@ function initializeUR() {
 
                     toutput += "<div id=\"" + element.courseID;
                     if (!checkIfInPlan(element.courseID, courseList)) {
-                        toutput += " class=\"missing\" ";
+                        toutput += "\" class=\"missing";
                         incompletePlan = true;
                     }
                     toutput += "\">";
@@ -205,7 +205,7 @@ function initializeUR() {
                 } else if (element.type == "Major") {
                     moutput += "<div id=\"" + element.courseID;
                     if (!checkIfInPlan(element.courseID, courseList)) {
-                        moutput += " class=\"missing\" ";
+                        moutput += "\" class=\"missing";
                         incompletePlan = true;
                     }
                     moutput += "\">";
@@ -214,7 +214,7 @@ function initializeUR() {
                 } else {
                     goutput += "<div id=\"" + element.courseID;
                     if (!checkIfInPlan(element.courseID, courseList)) {
-                        goutput += " class=\"missing\" ";
+                        goutput += "\" class=\"missing";
                         incompletePlan = true;
                     }
                     goutput += "\">";
