@@ -17,7 +17,7 @@ class PlansController < ApplicationController
   # GET /plans/1
   # GET /plans/1.json
   def show
-    @courses = Course.select(:name, :course_id, :credits, :description).distinct
+    @courses = Course.select(:name, :course_id, :credits, :description, :course_type).distinct
   end
 
   # GET /plans/new

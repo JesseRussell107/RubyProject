@@ -28,4 +28,5 @@ json.courses @courses do |course|
     json.courseID course.course_id
     json.credits course.credits
     json.description course.description
+    json.type course.course_type
 end

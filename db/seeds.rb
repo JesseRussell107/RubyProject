@@ -49,21 +49,21 @@ term11 = Term.create(plan_id: plan1.id, semester: "Spring", year: 2019)
 term12 = Term.create(plan_id: plan1.id, semester: "Summer", year: 2019)
 
 #give joe some courses
-course1 = Course.create(name: "C++ Programming", course_id: "CS-1210", credits: 3, description: "Description")
-course2 = Course.create(name: "Object Oriented Design", course_id: "CS-1220", credits: 3, description: "Description")
-course3 = Course.create(name: "Java Programming", course_id: "CS-2210", credits: 3, description: "Description")
-course11 = Course.create(name: "History of Potato", course_id: "PO-1210", credits: 3, description: "Description")
-course21 = Course.create(name: "Calc I", course_id: "MATH-17100", credits: 5, description: "Description")
-course31 = Course.create(name: "Algorithms", course_id: "CS-3410", credits: 3, description: "Description")
-course12 = Course.create(name: "Compiler", course_id: "CS-3510", credits: 3, description: "Description")
-course22 = Course.create(name: "Computer Architecture", course_id: "ENCP-3210", credits: 3, description: "Description")
-course32 = Course.create(name: "Computer Graphics", course_id: "CS-4710", credits: 3, description: "Description")
-course14 = Course.create(name: "Databases", course_id: "CS-3610", credits: 3, description: "Description")
-course24 = Course.create(name: "DLD", course_id: "ENCP-1010", credits: 3, description: "Description")
-course34 = Course.create(name: "O/S", course_id: "CS-3220", credits: 3, description: "Description")
-course15 = Course.create(name: "Parallel Computing", course_id: "CS-4410", credits: 3, description: "Description")
-course25 = Course.create(name: "Software Engineering I", course_id: "CS-4810", credits: 3, description: "Description")
-course35 = Course.create(name: "Software Engineering II", course_id: "CS-4820", credits: 3, description: "Description")
+course1 = Course.create(name: "C++ Programming", course_id: "CS-1210", credits: 3, description: "Description", course_type: "GenEd")
+course2 = Course.create(name: "Object Oriented Design", course_id: "CS-1220", credits: 3, description: "Description", course_type: "Major")
+course3 = Course.create(name: "Java Programming", course_id: "CS-2210", credits: 3, description: "Description", course_type: "Major")
+course11 = Course.create(name: "History of Potato", course_id: "PO-1210", credits: 3, description: "Description", course_type: "GenEd")
+course21 = Course.create(name: "Calc I", course_id: "MATH-17100", credits: 5, description: "Description", course_type: "GenEd")
+course31 = Course.create(name: "Algorithms", course_id: "CS-3410", credits: 3, description: "Description", course_type: "Major")
+course12 = Course.create(name: "Compiler", course_id: "CS-3510", credits: 3, description: "Description", course_type: "Track")
+course22 = Course.create(name: "Computer Architecture", course_id: "ENCP-3210", credits: 3, description: "Description", course_type: "Track")
+course32 = Course.create(name: "Computer Graphics", course_id: "CS-4710", credits: 3, description: "Description", course_type: "Track")
+course14 = Course.create(name: "Databases", course_id: "CS-3610", credits: 3, description: "Description", course_type: "Major")
+course24 = Course.create(name: "DLD", course_id: "ENCP-1010", credits: 3, description: "Description", course_type: "GenEd")
+course34 = Course.create(name: "O/S", course_id: "CS-3220", credits: 3, description: "Description", course_type: "Major")
+course15 = Course.create(name: "Parallel Computing", course_id: "CS-4410", credits: 3, description: "Description", course_type: "GenEd")
+course25 = Course.create(name: "Software Engineering I", course_id: "CS-4810", credits: 3, description: "Description", course_type: "Major")
+course35 = Course.create(name: "Software Engineering II", course_id: "CS-4820", credits: 3, description: "Description", course_type: "Major")
 
 #stick 'em together
 TermCourse.create(term_id: term1.id, course_id: course1.id)
@@ -82,6 +82,7 @@ TermCourse.create(term_id: term7.id, course_id: course15.id)
 TermCourse.create(term_id: term10.id, course_id: course25.id)
 TermCourse.create(term_id: term11.id, course_id: course35.id)
 
+#extraneous users
 user3 = User.new
 user3.login = "admin"
 user3.email = "admin@cedarville.edu"
@@ -131,3 +132,4 @@ Plan.create(user_id: user3.id, name: "ShowOff")
 Plan.create(user_id: user4.id, name: "iss43_v2")
 Plan.create(user_id: user5.id, name: "CUFriday")
 Plan.create(user_id: user6.id, name: "dummy")
+

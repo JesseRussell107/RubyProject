@@ -164,9 +164,12 @@ function initializeUR() {
             }
             ur.innerHTML = text;
 
+            //Make the search table
             var table = document.getElementById("search-body");
             table.innerHTML = "";
             var output = "";
+
+
             $.each(data.courses, function (index, element) {
                 output += "<tr>";
                 output += "<td>" + element.name + "</td>";
@@ -176,6 +179,73 @@ function initializeUR() {
                 output += "</tr>";
             });
             table.innerHTML = output;
+
+            //Make the Accordion
+            var gened = document.getElementById("gened");
+            var major = document.getElementById("major");
+            var track = document.getElementById("track");
+            gened.innerHTML = "";
+            major.innerHTML = "";
+            track.innerHTML = "";
+            var goutput = "";
+            var moutput = "";
+            var toutput = "";
+            var incompletePlan = false;
+            $.each(data.courses, function (index, element) {
+                if (element.type == "Track") {
+
+                    toutput += "<div id=\"" + element.courseID;
+                    if (!checkIfInPlan(element.courseID, courseList)) {
+                        toutput += " class=\"missing\" ";
+                        incompletePlan = true;
+                    }
+                    toutput += "\">";
+                    toutput += element.name + " - " + element.courseID;
+                    toutput += "</div>";
+                } else if (element.type == "Major") {
+                    moutput += "<div id=\"" + element.courseID;
+                    if (!checkIfInPlan(element.courseID, courseList)) {
+                        moutput += " class=\"missing\" ";
+                        incompletePlan = true;
+                    }
+                    moutput += "\">";
+                    moutput += element.name + " - " + element.courseID;
+                    moutput += "</div>";
+                } else {
+                    goutput += "<div id=\"" + element.courseID;
+                    if (!checkIfInPlan(element.courseID, courseList)) {
+                        goutput += " class=\"missing\" ";
+                        incompletePlan = true;
+                    }
+                    goutput += "\">";
+                    goutput += element.name + " - " + element.courseID;
+                    goutput += "</div>";
+                }
+            });
+            if(incompletePlan){
+                //Do stuff to BL div
+                //For now, all it does is give an option for CSS.
+                var BL = document.getElementById("BL");
+                BL.className = "Bad";
+            }
+
+            gened.innerHTML = goutput;
+            track.innerHTML = toutput;
+            major.innerHTML = moutput;
         });
     });
 };
+
+function onSaveClick() {
+
+}
+
+function checkIfInPlan(id, courseList) {
+    for (i = 0; i < courseList.length; i++) {
+        var c = courseList[i];
+        if (c.ID == id) {
+            return true;
+        }
+    }
+    return false;
+}
