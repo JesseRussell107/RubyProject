@@ -16,9 +16,9 @@
     <%= f.text_field :name %>
   </div>
 
-  <div class="field">
+  <div classs="field">
     <%= f.label :startyear %>
-    <%= f.text_field :startyear%>
+    <%= f.number_field(:startyear, in:1980..2100)%>
   </div>
 
   <div class="actions">
