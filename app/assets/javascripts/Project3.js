@@ -109,10 +109,11 @@ function initializeUR() {
                 } else {
                     text += "<div class=\"semester\">";
                 }
-                text += "<div class=\"year\"><p>Fall " + planner.years[year].name.toString() + "<\/p><\/div>";
+                text += "<div class=\"year Fall " + planner.years[year].name.toString() + "\"><p>Fall " + planner.years[year].name.toString() + "<\/p><\/div>";
                 for (var cid in planner.years[year].fa) {
                     var holder = planner.years[year].fa[cid];
-                    text += "<div class=\"course\"><div class=\"name\">";
+                    text += "<div class=\"course Fall " + planner.years[year].name.toString() + " " 
+                    text += holder.ID + "\"><div class=\"delete\" onclick=\"onDelete(this);\">X</div><div class=\"name\">";
                     text += holder.ID + " - ";
                     text += holder.name;
                     text += "<\/div><div class=\"credits\">";
@@ -129,10 +130,12 @@ function initializeUR() {
                 } else {
                     text += "<div class=\"semester\">";
                 }
-                text += "<div class=\"year\"><p>Spring " + (planner.years[year].name + 1).toString() + "</p><\/div>";
+                text += "<div class=\"year Spring " + (planner.years[year].name + 1).toString() + "\"><p>Spring ";
+                text += (planner.years[year].name + 1).toString() + "</p><\/div>";
                 for (var cid in planner.years[year].sp) {
                     var holder = planner.years[year].sp[cid];
-                    text += "<div class=\"course\"><div class=\"name\">";
+                    text += "<div class=\"course Spring " + (planner.years[year].name + 1).toString() + " " 
+                    text += holder.ID + "\"><div class=\"delete\" onclick=\"onDelete(this);\">X</div><div class=\"name\">";
                     text += holder.ID + " - ";
                     text += holder.name;
                     text += "<\/div><div class=\"credits\">";
@@ -149,10 +152,12 @@ function initializeUR() {
                 } else {
                     text += "<div class=\"semester\">";
                 }
-                text += "<div class=\"year\"><p>Summer " + (planner.years[year].name + 1).toString() + "</p><\/div>";
+                text += "<div class=\"year Summer " + (planner.years[year].name + 1).toString();
+                text += "\"><p>Summer " + (planner.years[year].name + 1).toString() + "</p><\/div>";
                 for (var cid in planner.years[year].su) {
                     var holder = planner.years[year].su[cid];
-                    text += "<div class=\"course\"><div class=\"name\">";
+                    text += "<div class=\"course Summer " + (planner.years[year].name + 1).toString() + " " 
+                    text += holder.ID + "\"><div class=\"delete\" onclick=\"onDelete(this);\">X</div><div class=\"name\">";
                     text += holder.ID + " - ";
                     text += holder.name;
                     text += "<\/div><div class=\"credits\">";
@@ -222,7 +227,7 @@ function initializeUR() {
                     goutput += "</div>";
                 }
             });
-            if(incompletePlan){
+            if (incompletePlan) {
                 //Do stuff to BL div
                 //For now, all it does is give an option for CSS.
                 var BL = document.getElementById("BL");
@@ -236,19 +241,48 @@ function initializeUR() {
             //Populate BL
 
 
-            //add deleters to courses in UR
-
-
         });
     });
 };
 
 function onAddClick() {
+    //get course from form
+    var cid = "";
+    //get term from form
+    var term = "";
 
+    //make an array. semYear[0] is semester, semYear[1] is year
+    var semYear = term.split(" ");
+    var planid = document.getElementById("plannum").innerHTML;
+    var urlString = "addCourse/" + planid.toString();
+    $.ajax({
+        method: "POST",
+        url: urlString,
+        data: {
+            name: "Semester", location: semYear[0],
+            name: "Year", location: semYear[1],
+            name: "courseID", location: cid
+        }
+    });
 }
 
-function onDelete(){
-    
+function onDelete(thisThing) {
+    var $todelete = $(thisThing);
+    var $thisparent = $todelete.parent();
+    var classList = $todelete.className.split(' ');
+
+    var urlString = "deleteCourse/" + document.getElementById("plannum").innerHTML.toString();
+    $.ajax({
+        method: "POST",
+        url: urlString,
+        data: {
+            name: "Semester", location: classList[1],
+            name: "Year", location: classList[2],
+            name: "courseID", location: classList[3]
+        }
+    });
+    $thisparent.removeChild($todelete);
+
 }
 
 function checkIfInPlan(id, courseList) {
