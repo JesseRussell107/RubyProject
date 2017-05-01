@@ -184,6 +184,7 @@ function initializeUR() {
                 output += "</tr>";
             });
             table.innerHTML = output;
+            initializeTable();
 
             //Make the Accordion
             var gened = document.getElementById("gened");
