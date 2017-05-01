@@ -112,7 +112,7 @@ function initializeUR() {
                 text += "<div class=\"year Fall " + planner.years[year].name.toString() + "\"><p>Fall " + planner.years[year].name.toString() + "<\/p><\/div>";
                 for (var cid in planner.years[year].fa) {
                     var holder = planner.years[year].fa[cid];
-                    text += "<div class=\"course Fall " + planner.years[year].name.toString() + " " 
+                    text += "<div class=\"course Fall " + planner.years[year].name.toString() + " "
                     text += holder.ID + "\"><div class=\"delete\" onclick=\"onDelete(this);\">X</div><div class=\"name\">";
                     text += holder.ID + " - ";
                     text += holder.name;
@@ -134,7 +134,7 @@ function initializeUR() {
                 text += (planner.years[year].name + 1).toString() + "</p><\/div>";
                 for (var cid in planner.years[year].sp) {
                     var holder = planner.years[year].sp[cid];
-                    text += "<div class=\"course Spring " + (planner.years[year].name + 1).toString() + " " 
+                    text += "<div class=\"course Spring " + (planner.years[year].name + 1).toString() + " "
                     text += holder.ID + "\"><div class=\"delete\" onclick=\"onDelete(this);\">X</div><div class=\"name\">";
                     text += holder.ID + " - ";
                     text += holder.name;
@@ -156,7 +156,7 @@ function initializeUR() {
                 text += "\"><p>Summer " + (planner.years[year].name + 1).toString() + "</p><\/div>";
                 for (var cid in planner.years[year].su) {
                     var holder = planner.years[year].su[cid];
-                    text += "<div class=\"course Summer " + (planner.years[year].name + 1).toString() + " " 
+                    text += "<div class=\"course Summer " + (planner.years[year].name + 1).toString() + " "
                     text += holder.ID + "\"><div class=\"delete\" onclick=\"onDelete(this);\">X</div><div class=\"name\">";
                     text += holder.ID + " - ";
                     text += holder.name;
@@ -239,8 +239,7 @@ function initializeUR() {
             major.innerHTML = moutput;
 
             //Populate BL
-
-
+            document.getElementById()
         });
     });
 };
@@ -254,14 +253,15 @@ function onAddClick() {
     //make an array. semYear[0] is semester, semYear[1] is year
     var semYear = term.split(" ");
     var planid = document.getElementById("plannum").innerHTML;
-    var urlString = "addCourse/" + planid.toString();
+    var urlString = "plans/" + planid.toString() + "/addCourse";
     $.ajax({
         method: "POST",
         url: urlString,
         data: {
-            name: "Semester", location: semYear[0],
-            name: "Year", location: semYear[1],
-            name: "courseID", location: cid
+            name: "semester", location: semYear[0],
+            name: "year", location: semYear[1],
+            name: "courseid", location: cid,
+            name: "plannum", location: document.getElementById("plannum").innerHTML.toString
         }
     });
 }
@@ -271,18 +271,18 @@ function onDelete(thisThing) {
     var $thisparent = $todelete.parent();
     var classList = $todelete.className.split(' ');
 
-    var urlString = "deleteCourse/" + document.getElementById("plannum").innerHTML.toString();
+    var urlString = "plans/" + document.getElementById("plannum").innerHTML.toString() + "deleteCourse";
     $.ajax({
         method: "POST",
         url: urlString,
         data: {
-            name: "Semester", location: classList[1],
-            name: "Year", location: classList[2],
-            name: "courseID", location: classList[3]
+            name: "semester", location: classList[1],
+            name: "year", location: classList[2],
+            name: "courseid", location: classList[3],
+            name: "plannum", location: document.getElementById("plannum").innerHTML.toString
         }
     });
     $thisparent.removeChild($todelete);
-
 }
 
 function checkIfInPlan(id, courseList) {

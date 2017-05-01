@@ -22,12 +22,25 @@ class PlansController < ApplicationController
 
   # GET /plans/new
   def new
-    @plan = Plan.new
+    @plan = Plan.new(new_plan_params)
   end
 
   # GET /plans/1/edit
   def edit
   end
+
+  # POST /plans/1/addCourse
+  def addCourse
+    t = Term.where(semester: add_params.semester, year: add_params.year, plan_id: add_params.plannum)
+    c = Course.where(course_id: add_params.courseid)
+    tc = TermCourse.new(term_id: t.id, course_id: c.)
+end
+
+  # POST /plans/1/deleteCourse
+  def deleteCourse
+
+  end
+  
 
   # POST /plans
   # POST /plans.json
@@ -80,12 +93,24 @@ class PlansController < ApplicationController
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
+    def new_plan_params
+      params.permit(:name, :startyear)
+    end
+    
     def plan_params
       params.require(:plan).permit(:startyear, :name)
     end
 
     def term_params
       params.require(:course).permit(:year)
+    end
+
+    def delete_params
+      params.require(:plan).permit(:semester, :year, :courseid, :plannum)
+    end
+    
+    def add_params
+      params.require(:plan).permit(:semester, :year, :courseid, :plannum)
     end
     
 
