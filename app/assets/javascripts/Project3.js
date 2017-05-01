@@ -232,12 +232,23 @@ function initializeUR() {
             gened.innerHTML = goutput;
             track.innerHTML = toutput;
             major.innerHTML = moutput;
+
+            //Populate BL
+
+
+            //add deleters to courses in UR
+
+
         });
     });
 };
 
-function onSaveClick() {
+function onAddClick() {
 
+}
+
+function onDelete(){
+    
 }
 
 function checkIfInPlan(id, courseList) {

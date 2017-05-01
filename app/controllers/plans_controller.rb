@@ -84,6 +84,11 @@ class PlansController < ApplicationController
       params.require(:plan).permit(:startyear, :name)
     end
 
+    def term_params
+      params.require(:course).permit(:year)
+    end
+    
+
     def resolve_layout
       case action_name
       when "show"
