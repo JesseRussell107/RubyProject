@@ -113,7 +113,7 @@ function initializeUR() {
                 for (var cid in planner.years[year].fa) {
                     var holder = planner.years[year].fa[cid];
                     text += "<div class=\"course Fall " + planner.years[year].name.toString() + " "
-                    text += holder.ID + "\"><div class=\"delete\" onclick=\"onDelete(this);\">X</div><div class=\"name\">";
+                    text += holder.ID + "\"><div class=\"delete\" onclick=\"onDelete();\">X</div><div class=\"name\">";
                     text += holder.ID + " - ";
                     text += holder.name;
                     text += "<\/div><div class=\"credits\">";
@@ -135,7 +135,7 @@ function initializeUR() {
                 for (var cid in planner.years[year].sp) {
                     var holder = planner.years[year].sp[cid];
                     text += "<div class=\"course Spring " + (planner.years[year].name + 1).toString() + " "
-                    text += holder.ID + "\"><div class=\"delete\" onclick=\"onDelete(this);\">X</div><div class=\"name\">";
+                    text += holder.ID + "\"><div class=\"delete\" onclick=\"onDelete();\">X</div><div class=\"name\">";
                     text += holder.ID + " - ";
                     text += holder.name;
                     text += "<\/div><div class=\"credits\">";
@@ -157,7 +157,7 @@ function initializeUR() {
                 for (var cid in planner.years[year].su) {
                     var holder = planner.years[year].su[cid];
                     text += "<div class=\"course Summer " + (planner.years[year].name + 1).toString() + " "
-                    text += holder.ID + "\"><div class=\"delete\" onclick=\"onDelete(this);\">X</div><div class=\"name\">";
+                    text += holder.ID + "\"><div class=\"delete\" onclick=\"onDelete();\">X</div><div class=\"name\">";
                     text += holder.ID + " - ";
                     text += holder.name;
                     text += "<\/div><div class=\"credits\">";
@@ -199,7 +199,6 @@ function initializeUR() {
             var incompletePlan = false;
             $.each(data.courses, function (index, element) {
                 if (element.type == "Track") {
-
                     toutput += "<div id=\"" + element.courseID;
                     if (!checkIfInPlan(element.courseID, courseList)) {
                         toutput += "\" class=\"missing";
@@ -240,7 +239,7 @@ function initializeUR() {
             major.innerHTML = moutput;
 
             //Populate BL
-            document.getElementById()
+            //document.getElementById()
         });
     });
 };
@@ -265,12 +264,25 @@ function onAddClick() {
             name: "plannum", location: document.getElementById("plannum").innerHTML.toString
         }
     });
+    $.getJSON(planid, function (data) {
+        $.each(data.courses, function(index, element){
+            if(element.courseID==cid){
+
+            }
+        });
+    });
+    var termdiv = document.getElementById(term);
+    termdiv.innerHTML += "<div class=\"course " + term + " " + cid +"\">";
+
+    termdiv.innerHTML += "</div>";
+
 }
 
-function onDelete(thisThing) {
-    var $todelete = $(thisThing);
-    var $thisparent = $todelete.parent();
-    var classList = $todelete.className.split(' ');
+function onDelete(){
+    var $todelete = $(this).parent().className;
+    var $thisparent = $(this).parent();
+    var $classsname = $thisparent.className;
+    var classList = classsname.split(' ');
 
     var urlString = "plans/" + document.getElementById("plannum").innerHTML.toString() + "deleteCourse";
     $.ajax({
@@ -284,7 +296,7 @@ function onDelete(thisThing) {
         }
     });
     $thisparent.removeChild($todelete);
-}
+};
 
 function checkIfInPlan(id, courseList) {
     for (i = 0; i < courseList.length; i++) {
