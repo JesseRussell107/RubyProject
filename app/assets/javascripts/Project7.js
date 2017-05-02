@@ -180,6 +180,8 @@ function initializeUR() {
                         text += "<div class=\"semester old\">";
                     } else if (data.terms[i].year == planner.current_year && planner.current_semester == "FA") {
                         text += "<div class=\"semester old\">";
+                    } else if (data.terms[i].year == planner.current_year && planner.current_semester != "FA") {
+                        text += "<div class=\"semester\">";
                     } else {
                         text += "<div class=\"semester\">";
                     }
@@ -191,7 +193,7 @@ function initializeUR() {
                     //SP
                     if (data.terms[i].year < (planner.current_year)) {
                         text += "<div class=\"semester old\">";
-                    } else if (data.terms[i].year == (planner.current_year) && planner.current_semester != "SP") {
+                    } else if (data.terms[i].year == (planner.current_year)) {
                         text += "<div class=\"semester old\">";
                     } else {
                         text += "<div class=\"semester\">";
@@ -376,12 +378,125 @@ function checkIfInPlan(id, courseList) {
     return false;
 }
 
-$(document).on("click", "#add",function() {
+$(document).on("click", "#add", function () {
+    var urlString = document.getElementById("plannum").innerHTML.toString() + "/addTerm";
     var year = $(".year").last();
     var yearClasses = year.attr("class").split(/\s+/);
     var yr = yearClasses[2];
-    $("#UR").append(yr);
+    $("#UR").append(yr)
+    var text = "";
+    text += "<div class=\"row\">";
+    var currYear = $("#currentYear").text();
+    var currSem = $("#currentSemester").text();
+    //FA
+    if (yr < currYear) {
+        text += "<div class=\"semester old\">";
+    } else if (yr == currYear && currSem != "FA") {
+        text += "<div class=\"semester\">";
+    } else if (yr == currYer && currSem == "FA") {
+        text += "<div class=\"semester old\">";
+    } else {
+        text += "<div class=\"semester\">";
+    }
+    text += "<div class=\"year Fall " + yr + "\"><p>Fall " + yr + "<\/p><\/div>";
+    text += "<\/div>"; //semester div
+    $.ajax({
+        method: "POST",
+        url: urlString,
+        data: {
+            semester: "Fall",
+            year: yr
+        }
+    });
+
+    yr++;
+    //SP
+    if (yr < currYear) {
+        text += "<div class=\"semester old\">";
+    } else if (yr == currYear) {
+        text += "<div class=\"semester old\">";
+    } else {
+        text += "<div class=\"semester\">";
+    }
+    text += "<div class=\"year Spring " + yr + "\"><p>Spring ";
+    text += yr + "</p><\/div>";
+
+    text += "<\/div>"; //semester div
+
+    $.ajax({
+        method: "POST",
+        url: urlString,
+        data: {
+            semester: "Spring",
+            year: yr
+        }
+    });
+
+    //SU
+    if (yr < currYear) {
+        text += "<div class=\"semester old\">";
+    } else if (yr == currYear && (currSem == "SU" || currSem == "FA")) {
+        text += "<div class=\"semester old\">";
+    } else {
+        text += "<div class=\"semester\">";
+    }
+    text += "<div class=\"year Summer " + yr;
+    text += "\"><p>Summer " + yr + "</p><\/div>";
+
+    text += "<\/div>"; //semester div
+    text += "<\/div>"; //row div
+    $.ajax({
+        method: "POST",
+        url: urlString,
+        data: {
+            semester: "Summer",
+            year: yr
+        }
+    });
+
 });
 
-$("#remove").click(function() {
+$(document).on(click, "#remove", function () {
+    var urlString = document.getElementById("plannum").innerHTML.toString() + "/addTerm";
+    var $row = $("#UR > .row").last().children()
+    //rows
+    var empty = true;
+    //terms
+    $row.children().each(function (element) {
+        if (this.children().length != 1) {
+            empty = false;
+        }
+    });
+    if (empty) {
+        var yr = $row.children().first().attr("class").split(" ");
+        $.ajax({
+            method: "POST",
+            url: urlString,
+            data: {
+                semester: "Fall",
+                year: yr[2]
+            }
+        });
+        $.ajax({
+            method: "POST",
+            url: urlString,
+            data: {
+                semester: "Spring",
+                year: yr[2] + 1
+            }
+        });
+        $.ajax({
+            method: "POST",
+            url: urlString,
+            data: {
+                semester: "Summer",
+                year: yr[2] + 1
+            }
+        });
+        $row.remove();
+    }
+
+
+
+
 });
