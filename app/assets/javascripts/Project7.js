@@ -445,6 +445,7 @@ $(document).on("click", "#add", function () {
     var option = "<option value=\'Fall " + yr + "'>Fall " + (yr - 1) + "</option>";
     option += "<option value=\'Spring " + yr + "'>Spring " + yr + "</option>";
     option += "<option value=\'Summer " + yr + "'>Summer " + yr + "</option>";
+    termSelect.innerHTML += option;
 
 });
 
@@ -470,5 +471,9 @@ $(document).on("click", "#remove", function () {
             }
         });
         $row[0].remove();
+        $("option .Fall." + yr[2]).remove();
+        $("option .Spring." + (year+1).toString()).remove();
+        $("option .Summer." + (year+1).toString()).remove();
+       
     }
 });
