@@ -112,7 +112,7 @@ function initializeUR() {
                 text += "<div class=\"year Fall " + planner.years[year].name.toString() + "\"><p>Fall " + planner.years[year].name.toString() + "<\/p><\/div>";
                 for (var cid in planner.years[year].fa) {
                     var holder = planner.years[year].fa[cid];
-                    text += "<div class=\"course Fall " + planner.years[year].name.toString() + " "
+                    text += "<div class=\"course Fall " + planner.years[year].name.toString() + " ";
                     text += holder.ID + "\"><div class=\"delete\" onclick=\"javascript:onDelete('Fall', '";
                     text += (planner.years[year].name).toString() + "', '" + holder.ID + "', this);\">X</div><div class=\"name\">";
                     text += holder.ID + " - ";
@@ -135,7 +135,7 @@ function initializeUR() {
                 text += (planner.years[year].name + 1).toString() + "</p><\/div>";
                 for (var cid in planner.years[year].sp) {
                     var holder = planner.years[year].sp[cid];
-                    text += "<div class=\"course Spring " + (planner.years[year].name + 1).toString() + " "
+                    text += "<div class=\"course Spring " + (planner.years[year].name + 1).toString() + " ";
                     text += holder.ID + "\"><div class=\"delete\" onclick=\"javascript:onDelete('Spring', '";
                     text += (planner.years[year].name + 1).toString() + "', '" + holder.ID + "', this);\">X</div><div class=\"name\">";
                     text += holder.ID + " - ";
@@ -158,7 +158,7 @@ function initializeUR() {
                 text += "\"><p>Summer " + (planner.years[year].name + 1).toString() + "</p><\/div>";
                 for (var cid in planner.years[year].su) {
                     var holder = planner.years[year].su[cid];
-                    text += "<div class=\"course Summer " + (planner.years[year].name + 1).toString() + " "
+                    text += "<div class=\"course Summer " + (planner.years[year].name + 1).toString() + " ";
                     text += holder.ID + "\"><div class=\"delete\" onclick=\"javascript:onDelete('Summer', '";
                     text += (planner.years[year].name + 1).toString() + "', '" + holder.ID + "', this);\">X</div><div class=\"name\">";
                     text += holder.ID + " - ";
@@ -331,8 +331,8 @@ function onAddClick() {
             year: semYear[1],
             courseid: cid
         },
-        success: function() {$("#result").text("Add Successful")},
-        error: function() {$("#result").text("Error: Add Unsuccessful - Contact the Admin")}
+        success: function () { $("#result").text("Add Successful") },
+        error: function () { $("#result").text("Error: Add Unsuccessful - Contact the Admin") }
     });
 
     //0 is id, 1 is name, 2 is credits
@@ -403,6 +403,8 @@ $(document).on("click", "#add", function () {
     }
     text += "<div class=\"year Fall " + yr + "\"><p>Fall " + yr + "<\/p><\/div>";
     text += "<\/div>"; //semester div
+
+    termSelect.append(option);
     $.ajax({
         method: "POST",
         url: urlString,
@@ -421,7 +423,7 @@ $(document).on("click", "#add", function () {
     } else {
         text += "<div class=\"semester\">";
     }
-    text += "<div class=\"year Spring " + yr + "\"><p>Spring ";
+    text += "<div class=\"year Spring " + (parseInt(yr) + 1) + "\"><p>Spring ";
     text += yr + "</p><\/div>";
 
     text += "<\/div>"; //semester div
@@ -456,6 +458,11 @@ $(document).on("click", "#add", function () {
             year: yr
         }
     });
+
+    var termSelect = document.getElementById("termSelect");
+    var option = "<option value=\'Fall " + yr + "'>Fall " + (yr - 1) + "</option>";
+    option += "<option value=\'Spring " + yr + "'>Spring " + yr + "</option>";
+    option += "<option value=\'Summer " + yr + "'>Summer " + yr + "</option>";
 
 });
 
