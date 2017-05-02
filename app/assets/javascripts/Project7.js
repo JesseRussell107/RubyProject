@@ -319,15 +319,14 @@ function onAddClick() {
     //make an array. semYear[0] is semester, semYear[1] is year
     var semYear = term.split(" ");
     var planid = document.getElementById("plannum").innerHTML;
-    var urlString = "plans/" + planid.toString() + "/addCourse";
+    var urlString = planid.toString() + "/addCourse";
     $.ajax({
         method: "POST",
         url: urlString,
         data: {
-            name: "semester", location: semYear[0],
-            name: "year", location: semYear[1],
-            name: "courseid", location: cid,
-            name: "plannum", location: planid.toString()
+            semester: semYear[0],
+            year: semYear[1],
+            courseid: cid
         }
     });
 
@@ -351,15 +350,14 @@ function onAddClick() {
 
 function onDelete(semester, year, courseid, thing) {
     var planid = document.getElementById("plannum").innerHTML.toString();
-    var urlString = "plans/" + document.getElementById("plannum").innerHTML.toString() + "/deleteCourse";
+    var urlString = document.getElementById("plannum").innerHTML.toString() + "/deleteCourse";
     $.ajax({
         method: "POST",
         url: urlString,
         data: {
-            name: "semester", location: semester,
-            name: "year", location: year,
-            name: "courseid", location: courseid,
-            name: "plannum", location: planid
+            semester: semester,
+            year: year,
+            courseid: courseid
         }
     });
     var daddy = thing.parentElement;
@@ -377,3 +375,13 @@ function checkIfInPlan(id, courseList) {
     }
     return false;
 }
+
+$(document).on("click", "#add",function() {
+    var year = $(".year").last();
+    var yearClasses = year.attr("class").split(/\s+/);
+    var yr = yearClasses[2];
+    $("#UR").append(yr);
+});
+
+$("#remove").click(function() {
+});
