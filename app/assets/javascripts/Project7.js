@@ -112,7 +112,7 @@ function initializeUR() {
                 text += "<div class=\"year Fall " + planner.years[year].name.toString() + "\"><p>Fall " + planner.years[year].name.toString() + "<\/p><\/div>";
                 for (var cid in planner.years[year].fa) {
                     var holder = planner.years[year].fa[cid];
-                    text += "<div class=\"course Fall " + planner.years[year].name.toString() + " "
+                    text += "<div class=\"course Fall " + planner.years[year].name.toString() + " ";
                     text += holder.ID + "\"><div class=\"delete\" onclick=\"javascript:onDelete('Fall', '";
                     text += (planner.years[year].name).toString() + "', '" + holder.ID + "', this);\">X</div><div class=\"name\">";
                     text += holder.ID + " - ";
@@ -135,7 +135,7 @@ function initializeUR() {
                 text += (planner.years[year].name + 1).toString() + "</p><\/div>";
                 for (var cid in planner.years[year].sp) {
                     var holder = planner.years[year].sp[cid];
-                    text += "<div class=\"course Spring " + (planner.years[year].name + 1).toString() + " "
+                    text += "<div class=\"course Spring " + (planner.years[year].name + 1).toString() + " ";
                     text += holder.ID + "\"><div class=\"delete\" onclick=\"javascript:onDelete('Spring', '";
                     text += (planner.years[year].name + 1).toString() + "', '" + holder.ID + "', this);\">X</div><div class=\"name\">";
                     text += holder.ID + " - ";
@@ -158,7 +158,7 @@ function initializeUR() {
                 text += "\"><p>Summer " + (planner.years[year].name + 1).toString() + "</p><\/div>";
                 for (var cid in planner.years[year].su) {
                     var holder = planner.years[year].su[cid];
-                    text += "<div class=\"course Summer " + (planner.years[year].name + 1).toString() + " "
+                    text += "<div class=\"course Summer " + (planner.years[year].name + 1).toString() + " ";
                     text += holder.ID + "\"><div class=\"delete\" onclick=\"javascript:onDelete('Summer', '";
                     text += (planner.years[year].name + 1).toString() + "', '" + holder.ID + "', this);\">X</div><div class=\"name\">";
                     text += holder.ID + " - ";
@@ -331,8 +331,8 @@ function onAddClick() {
             year: semYear[1],
             courseid: cid
         },
-        success: function() {$("#result").text("Add Successful")},
-        error: function() {$("#result").text("Error: Add Unsuccessful - Contact the Admin")}
+        success: function () { $("#result").text("Add Successful") },
+        error: function () { $("#result").text("Error: Add Unsuccessful - Contact the Admin") }
     });
 
     //0 is id, 1 is name, 2 is credits
@@ -386,31 +386,23 @@ $(document).on("click", "#add", function () {
     var year = $(".year").last();
     var yearClasses = year.attr("class").split(/\s+/);
     var yr = yearClasses[2];
-    $("#UR").append(yr)
     var text = "";
     text += "<div class=\"row\">";
     var currYear = $("#currentYear").text();
-    var currSem = $("#currentSemester").text();
+    var currSem = $("#currentSemester").text().replace(/\s+/g, '');
     //FA
     if (yr < currYear) {
         text += "<div class=\"semester old\">";
     } else if (yr == currYear && currSem != "FA") {
         text += "<div class=\"semester\">";
-    } else if (yr == currYer && currSem == "FA") {
+    } else if (yr == currYear && currSem == "FA") {
         text += "<div class=\"semester old\">";
     } else {
         text += "<div class=\"semester\">";
     }
     text += "<div class=\"year Fall " + yr + "\"><p>Fall " + yr + "<\/p><\/div>";
     text += "<\/div>"; //semester div
-    $.ajax({
-        method: "POST",
-        url: urlString,
-        data: {
-            semester: "Fall",
-            year: yr
-        }
-    });
+
 
     yr++;
     //SP
@@ -426,14 +418,7 @@ $(document).on("click", "#add", function () {
 
     text += "<\/div>"; //semester div
 
-    $.ajax({
-        method: "POST",
-        url: urlString,
-        data: {
-            semester: "Spring",
-            year: yr
-        }
-    });
+
 
     //SU
     if (yr < currYear) {
@@ -452,54 +437,34 @@ $(document).on("click", "#add", function () {
         method: "POST",
         url: urlString,
         data: {
-            semester: "Summer",
             year: yr
         }
     });
+    $("#UR > .row").last().after(text);
 
 });
 
-$(document).on(click, "#remove", function () {
-    var urlString = document.getElementById("plannum").innerHTML.toString() + "/addTerm";
-    var $row = $("#UR > .row").last().children()
+$(document).on("click", "#remove", function () {
+    var urlString = document.getElementById("plannum").innerHTML.toString() + "/deleteTerm";
+    var $row = $("#UR > .row").last();
     //rows
     var empty = true;
     //terms
-    $row.children().each(function (element) {
-        if (this.children().length != 1) {
+    $.each($row[0].children, function (element) {
+        if (this.children.length != 1) {
             empty = false;
         }
     });
     if (empty) {
-        var yr = $row.children().first().attr("class").split(" ");
+        var yr = $($row[0].children[0].children[0]).attr("class").split(" ");
+        var year = parseInt(yr[2]);
         $.ajax({
             method: "POST",
             url: urlString,
             data: {
-                semester: "Fall",
-                year: yr[2]
+                year: year + 1
             }
         });
-        $.ajax({
-            method: "POST",
-            url: urlString,
-            data: {
-                semester: "Spring",
-                year: yr[2] + 1
-            }
-        });
-        $.ajax({
-            method: "POST",
-            url: urlString,
-            data: {
-                semester: "Summer",
-                year: yr[2] + 1
-            }
-        });
-        $row.remove();
+        $row[0].remove();
     }
-
-
-
-
 });

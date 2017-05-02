@@ -51,12 +51,16 @@ class PlansController < ApplicationController
 
   # POST /plans/1/addTerm
   def addTerm
-    Term.create(semester: term_params[:semester], year: term_params[:year], plan_id: term_params[:id])
+    Term.create(semester: "Spring", year: term_params[:year], plan_id: term_params[:id])
+    Term.create(semester: "Summer", year: term_params[:year], plan_id: term_params[:id])
+    Term.create(semester: "Fall", year: term_params[:year].to_i-1, plan_id: term_params[:id])
   end
 
   # POST /plans/1/deleteTerm
   def deleteTerm
-    Term.where(semester: term_params[:semester], year: term_params[:year], plan_id: term_params[:id]).destroy
+    Term.where(semester: "Spring", year: term_params[:year], plan_id: term_params[:id]).take.destroy
+    Term.where(semester: "Summer", year: term_params[:year], plan_id: term_params[:id]).take.destroy
+    Term.where(semester: "Fall", year: term_params[:year].to_i-1, plan_id: term_params[:id]).take.destroy
   end  
 
   # POST /plans
@@ -135,7 +139,7 @@ class PlansController < ApplicationController
     end
 
     def term_params
-      params.permit(:semester, :year, :id)
+      params.permit(:year, :id)
     end
     
 
