@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   resources :plans, :admin
   devise_for :users, :controllers => {:registrations => 'registrations'}
   root 'plans#index'
+  match ':controller/:action/:id/deleteCourse', :via => :post
+  match ':controller/:action/:id/addCourse', :via => :post
   # match '/show' => 'plans#show'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

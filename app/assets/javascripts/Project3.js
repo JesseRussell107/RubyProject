@@ -172,7 +172,7 @@ function initializeUR() {
             }
 
             if (empty_plan === true) {
-                for(var i=0; i < data.terms.length; i++) {
+                for (var i = 0; i < data.terms.length; i++) {
                     text += "<div class=\"row\">";
 
                     //FA
@@ -184,7 +184,7 @@ function initializeUR() {
                         text += "<div class=\"semester\">";
                     }
                     text += "<div class=\"year Fall " + data.terms[i].year.toString() + "\"><p>Fall " + data.terms[i].year.toString() + "<\/p><\/div>";
-                    
+
                     text += "<\/div>"; //semester div
 
                     i++;
@@ -198,7 +198,7 @@ function initializeUR() {
                     }
                     text += "<div class=\"year Spring " + data.terms[i].year.toString() + "\"><p>Spring ";
                     text += data.terms[i].year.toString() + "</p><\/div>";
-                    
+
                     text += "<\/div>"; //semester div
                     i++;
 
@@ -212,7 +212,7 @@ function initializeUR() {
                     }
                     text += "<div class=\"year Summer " + data.terms[i].year.toString();
                     text += "\"><p>Summer " + data.terms[i].year.toString() + "</p><\/div>";
-                    
+
                     text += "<\/div>"; //semester div
                     text += "<\/div>"; //row div
                 }
@@ -300,7 +300,7 @@ function initializeUR() {
             });
             var coursestring;
             $.each(data.courses, function (index, element) {
-                var holder = element.courseID + " - " + element.name;
+                var holder = element.courseID + " - " + element.name + " - " + element.credits.toString();
                 coursestring += "<option value='" + element.courseID + "'>" + holder + "</option>";
             });
             termSelect.innerHTML = termstring;
@@ -312,6 +312,7 @@ function initializeUR() {
 function onAddClick() {
     //get course from form
     var cid = $("#courseSelect").val();
+    var cinfo = $("#courseSelect :selected").text();
     //get term from form
     var term = $("#termSelect").val();
 
@@ -326,22 +327,26 @@ function onAddClick() {
             name: "semester", location: semYear[0],
             name: "year", location: semYear[1],
             name: "courseid", location: cid,
-            name: "plannum", location: document.getElementById("plannum").innerHTML.toString
+            name: "plannum", location: planid.toString()
         }
     });
-    $.getJSON(planid, function (data) {
-        $.each(data.courses, function (index, element) {
-            if (element.courseID == cid) {
-                var yearDiv = document.getElementsByClassName("year " + term);
-                
-            }
-        });
-    });
-    var termdiv = document.getElementById(term);
-    termdiv.innerHTML += "<div class=\"course " + term + " " + cid + "\">";
 
-    termdiv.innerHTML += "</div>";
+    //0 is id, 1 is name, 2 is credits
+    var courseinfo = cinfo.split(" - ");
 
+    var yearDiv = document.getElementsByClassName("year " + term);
+    var daddy = yearDiv[0].parentNode;
+    var text = "<div class=\"course " + term;
+    text += courseinfo[0] + "\"><div class=\"delete\" onclick=\"javascript:onDelete('" + semYear[0] + "', '";
+    text += semYear[1] + "', '" + cid + "', this);\">X</div><div class=\"name\">";
+    text += courseinfo[0] + " - ";
+    text += courseinfo[1];
+    text += "<\/div><div class=\"credits\">";
+    text += courseinfo[2];
+    text += "<\/div><\/div>";
+    daddy.innerHTML += text;
+
+    document.getElementById(courseinfo[0]).className = "";
 }
 
 function onDelete(semester, year, courseid, thing) {
@@ -359,6 +364,8 @@ function onDelete(semester, year, courseid, thing) {
     });
     var daddy = thing.parentElement;
     daddy.outerHTML = "";
+
+    document.getElementById(courseid).className = "missing";
 };
 
 function checkIfInPlan(id, courseList) {
