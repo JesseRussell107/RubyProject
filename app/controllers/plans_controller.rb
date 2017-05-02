@@ -32,7 +32,8 @@ class PlansController < ApplicationController
   def addCourse
     @t = Term.where(semester: add_params.semester, year: add_params.year, plan_id: add_params.plannum)
     @c = Course.where(course_id: add_params.courseid)
-    TermCourse.new(term_id: t.id, course_id: c.id)
+    @tc = TermCourse.create(:term_id =>  t.id, :course_id => c.id)
+    @tc.save
   end
 
   # POST /plans/1/deleteCourse

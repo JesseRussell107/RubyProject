@@ -114,7 +114,7 @@ function initializeUR() {
                     var holder = planner.years[year].fa[cid];
                     text += "<div class=\"course Fall " + planner.years[year].name.toString() + " "
                     text += holder.ID + "\"><div class=\"delete\" onclick=\"javascript:onDelete('Fall', '";
-                    text += (planner.years[year].name).toString() + "', '" + holder.ID + "');\">X</div><div class=\"name\">";
+                    text += (planner.years[year].name).toString() + "', '" + holder.ID + "', this);\">X</div><div class=\"name\">";
                     text += holder.ID + " - ";
                     text += holder.name;
                     text += "<\/div><div class=\"credits\">";
@@ -137,7 +137,7 @@ function initializeUR() {
                     var holder = planner.years[year].sp[cid];
                     text += "<div class=\"course Spring " + (planner.years[year].name + 1).toString() + " "
                     text += holder.ID + "\"><div class=\"delete\" onclick=\"javascript:onDelete('Spring', '";
-                    text += (planner.years[year].name + 1).toString() + "', '" + holder.ID + "');\">X</div><div class=\"name\">";
+                    text += (planner.years[year].name + 1).toString() + "', '" + holder.ID + "', this);\">X</div><div class=\"name\">";
                     text += holder.ID + " - ";
                     text += holder.name;
                     text += "<\/div><div class=\"credits\">";
@@ -160,7 +160,7 @@ function initializeUR() {
                     var holder = planner.years[year].su[cid];
                     text += "<div class=\"course Summer " + (planner.years[year].name + 1).toString() + " "
                     text += holder.ID + "\"><div class=\"delete\" onclick=\"javascript:onDelete('Summer', '";
-                    text += (planner.years[year].name + 1).toString() + "', '" + holder.ID + "');\">X</div><div class=\"name\">";
+                    text += (planner.years[year].name + 1).toString() + "', '" + holder.ID + "', this);\">X</div><div class=\"name\">";
                     text += holder.ID + " - ";
                     text += holder.name;
                     text += "<\/div><div class=\"credits\">";
@@ -242,16 +242,31 @@ function initializeUR() {
             major.innerHTML = moutput;
 
             //Populate BL
-            //document.getElementById()
+            var courseSelect = document.getElementById("courseSelect");
+            var termSelect = document.getElementById("termSelect");
+            termSelect.innerHTML = "";
+            courseSelect.innerHTML = "";
+            var termstring;
+            $.each(data.terms, function (index, element) {
+                var holder = element.semester + " " + element.year.toString();
+                termstring += "<option value='" + holder + "'>" + holder + "</option>";
+            });
+            var coursestring;
+            $.each(data.courses, function (index, element) {
+                var holder = element.courseID + " - " + element.name;
+                coursestring += "<option value='" + element.courseID + "'>" + holder + "</option>";
+            });
+            termSelect.innerHTML = termstring;
+            courseSelect.innerHTML = coursestring;
         });
     });
 };
 
 function onAddClick() {
     //get course from form
-    var cid = "";
+    var cid = $("#courseSelect").val();
     //get term from form
-    var term = "";
+    var term = $("#termSelect").val();
 
     //make an array. semYear[0] is semester, semYear[1] is year
     var semYear = term.split(" ");
@@ -270,7 +285,8 @@ function onAddClick() {
     $.getJSON(planid, function (data) {
         $.each(data.courses, function (index, element) {
             if (element.courseID == cid) {
-
+                var yearDiv = document.getElementsByClassName("year " + term);
+                
             }
         });
     });
@@ -281,7 +297,7 @@ function onAddClick() {
 
 }
 
-function onDelete(semester, year, courseid) {
+function onDelete(semester, year, courseid, thing) {
     var planid = document.getElementById("plannum").innerHTML.toString();
     var urlString = "plans/" + document.getElementById("plannum").innerHTML.toString() + "/deleteCourse";
     $.ajax({
@@ -294,7 +310,8 @@ function onDelete(semester, year, courseid) {
             name: "plannum", location: planid
         }
     });
-    
+    var daddy = thing.parentElement;
+    daddy.outerHTML = "";
 };
 
 function checkIfInPlan(id, courseList) {
