@@ -404,7 +404,6 @@ $(document).on("click", "#add", function () {
     text += "<div class=\"year Fall " + yr + "\"><p>Fall " + yr + "<\/p><\/div>";
     text += "<\/div>"; //semester div
 
-
     yr++;
     //SP
     if (yr < currYear) {
@@ -414,7 +413,7 @@ $(document).on("click", "#add", function () {
     } else {
         text += "<div class=\"semester\">";
     }
-    text += "<div class=\"year Spring " + yr + "\"><p>Spring ";
+    text += "<div class=\"year Spring " + (parseInt(yr) + 1) + "\"><p>Spring ";
     text += yr + "</p><\/div>";
 
     text += "<\/div>"; //semester div
@@ -443,6 +442,12 @@ $(document).on("click", "#add", function () {
     });
     $("#UR > .row").last().after(text);
 
+    var termSelect = document.getElementById("termSelect");
+    var option = "<option value=\'Fall " + yr + "'>Fall " + (yr - 1) + "</option>";
+    option += "<option value=\'Spring " + yr + "'>Spring " + yr + "</option>";
+    option += "<option value=\'Summer " + yr + "'>Summer " + yr + "</option>";
+    termSelect.innerHTML += option;
+
 });
 
 $(document).on("click", "#remove", function () {
@@ -467,5 +472,9 @@ $(document).on("click", "#remove", function () {
             }
         });
         $row[0].remove();
+        $("option .Fall." + yr[2]).remove();
+        $("option .Spring." + (year+1).toString()).remove();
+        $("option .Summer." + (year+1).toString()).remove();
+       
     }
 });
