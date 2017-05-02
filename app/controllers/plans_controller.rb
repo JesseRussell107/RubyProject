@@ -57,10 +57,6 @@ class PlansController < ApplicationController
         Term.create(plan_id: @plan.id, semester: "Fall", year: @plan.startyear)
         Term.create(plan_id: @plan.id, semester: "Spring", year: @plan.startyear+1)
         Term.create(plan_id: @plan.id, semester: "Summer", year: @plan.startyear+1)
-        Term.create(plan_id: @plan.id, semester: "Fall", year: @plan.startyear+1)
-        Term.create(plan_id: @plan.id, semester: "Spring", year: @plan.startyear+2)
-        Term.create(plan_id: @plan.id, semester: "Summer", year: @plan.startyear+2)
-        #TermCourse.create(term_id: term1.id, course_id: 1)
       else
         format.html { render :new }
         format.json { render json: @plan.errors, status: :unprocessable_entity }

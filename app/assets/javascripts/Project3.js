@@ -95,7 +95,6 @@ function initializeUR() {
                 }
             }
             var ur = document.getElementById("UR");
-            ur.innerHTML = "";
             var text = "";
             var empty_plan = true;
             for (var year in planner.years) {
@@ -215,7 +214,7 @@ function initializeUR() {
                     text += "<\/div>"; //row div
                 }
             }
-            ur.innerHTML = text;
+            ur.innerHTML = text + ur.innerHTML;
 
             //Make the search table
             var table = document.getElementById("search-body");
