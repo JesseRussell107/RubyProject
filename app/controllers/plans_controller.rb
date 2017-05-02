@@ -50,15 +50,20 @@ class PlansController < ApplicationController
   def create
     @plan = Plan.new(plan_params)
     @plan.user_id = current_user.id
+
     respond_to do |format|
       if @plan.save
         format.html { redirect_to @plan, notice: 'Plan was successfully created.' }
         format.json { render :show, status: :created, location: @plan }
+        Term.create(plan_id: @plan.id, semester: "Fall", year: @plan.startyear)
+        Term.create(plan_id: @plan.id, semester: "Spring", year: @plan.startyear+1)
+        Term.create(plan_id: @plan.id, semester: "Summer", year: @plan.startyear+1)
       else
         format.html { render :new }
         format.json { render json: @plan.errors, status: :unprocessable_entity }
       end
     end
+
   end
 
   # PATCH/PUT /plans/1

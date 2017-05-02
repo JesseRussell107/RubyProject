@@ -36,7 +36,6 @@ function initializeUR() {
         $.getJSON(planid, function (data) {
             var catYear;
             var courseList = [];
-            var planner = new Plan("Error", 2014, "Error", "Error", "SP", 2017, courseList);
 
             //$("#plan-name").append(data.student);
             catYear = data.catalogYear;
@@ -70,8 +69,8 @@ function initializeUR() {
 
             });
 
-            planner = new Plan(data.planName, data.catalogYear, data.major, data.student, season, data.currYear, courseList);
 
+            var planner = new Plan(data.planName, data.catalogYear, data.major, data.student, season, data.currYear, courseList);
             planner.years = [];
             for (i = 0; i < courseList.length; i++) {
                 var c = courseList[i];
@@ -96,9 +95,10 @@ function initializeUR() {
                 }
             }
             var ur = document.getElementById("UR");
-            ur.innerHTML = "";
             var text = "";
+            var empty_plan = true;
             for (var year in planner.years) {
+                empty_plan = false;
                 text += "<div class=\"row\">";
 
                 //FA
@@ -170,7 +170,54 @@ function initializeUR() {
                 text += "<\/div>"; //semester div
                 text += "<\/div>"; //row div
             }
-            ur.innerHTML = text;
+
+            if (empty_plan === true) {
+                for(var i=0; i < data.terms.length; i++) {
+                    text += "<div class=\"row\">";
+
+                    //FA
+                    if (data.terms[i].year < planner.current_year) {
+                        text += "<div class=\"semester old\">";
+                    } else if (data.terms[i].year == planner.current_year && planner.current_semester == "FA") {
+                        text += "<div class=\"semester old\">";
+                    } else {
+                        text += "<div class=\"semester\">";
+                    }
+                    text += "<div class=\"year Fall " + data.terms[i].year.toString() + "\"><p>Fall " + data.terms[i].year.toString() + "<\/p><\/div>";
+                    
+                    text += "<\/div>"; //semester div
+
+                    i++;
+                    //SP
+                    if (data.terms[i].year < (planner.current_year)) {
+                        text += "<div class=\"semester old\">";
+                    } else if (data.terms[i].year == (planner.current_year) && planner.current_semester != "SP") {
+                        text += "<div class=\"semester old\">";
+                    } else {
+                        text += "<div class=\"semester\">";
+                    }
+                    text += "<div class=\"year Spring " + data.terms[i].year.toString() + "\"><p>Spring ";
+                    text += data.terms[i].year.toString() + "</p><\/div>";
+                    
+                    text += "<\/div>"; //semester div
+                    i++;
+
+                    //SU
+                    if (data.terms[i].year < (planner.current_year)) {
+                        text += "<div class=\"semester old\">";
+                    } else if (data.terms[i].year == (planner.current_year) && (planner.current_semester == "SU" || planner.current_semester == "FA")) {
+                        text += "<div class=\"semester old\">";
+                    } else {
+                        text += "<div class=\"semester\">";
+                    }
+                    text += "<div class=\"year Summer " + data.terms[i].year.toString();
+                    text += "\"><p>Summer " + data.terms[i].year.toString() + "</p><\/div>";
+                    
+                    text += "<\/div>"; //semester div
+                    text += "<\/div>"; //row div
+                }
+            }
+            ur.innerHTML = text + ur.innerHTML;
 
             //Make the search table
             var table = document.getElementById("search-body");
