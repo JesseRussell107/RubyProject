@@ -170,46 +170,50 @@ function initializeUR() {
             }
 
             if (empty_plan === true) {
-                text += "<div class=\"row\">";
+                for(var i=0; i < data.terms.length; i++) {
+                    text += "<div class=\"row\">";
 
-                //FA
-                if (planner.catalog_year < planner.current_year) {
-                    text += "<div class=\"semester old\">";
-                } else if (planner.catalog_year == planner.current_year && planner.current_semester == "FA") {
-                    text += "<div class=\"semester old\">";
-                } else {
-                    text += "<div class=\"semester\">";
-                }
-                text += "<div class=\"year Fall " + planner.catalog_year.toString() + "\"><p>Fall " + planner.catalog_year.toString() + "<\/p><\/div>";
-                
-                text += "<\/div>"; //semester div
+                    //FA
+                    if (data.terms[i].year < planner.current_year) {
+                        text += "<div class=\"semester old\">";
+                    } else if (data.terms[i].year == planner.current_year && planner.current_semester == "FA") {
+                        text += "<div class=\"semester old\">";
+                    } else {
+                        text += "<div class=\"semester\">";
+                    }
+                    text += "<div class=\"year Fall " + data.terms[i].year.toString() + "\"><p>Fall " + data.terms[i].year.toString() + "<\/p><\/div>";
+                    
+                    text += "<\/div>"; //semester div
 
-                //SP
-                if (planner.catalog_year + 1 < (planner.current_year)) {
-                    text += "<div class=\"semester old\">";
-                } else if (planner.catalog_year + 1 == (planner.current_year - 1) && planner.current_semester == "SP") {
-                    text += "<div class=\"semester old\">";
-                } else {
-                    text += "<div class=\"semester\">";
-                }
-                text += "<div class=\"year Spring " + (planner.catalog_year + 1).toString() + "\"><p>Spring ";
-                text += (planner.catalog_year + 1).toString() + "</p><\/div>";
-                
-                text += "<\/div>"; //semester div
+                    i++;
+                    //SP
+                    if (data.terms[i].year < (planner.current_year)) {
+                        text += "<div class=\"semester old\">";
+                    } else if (data.terms[i].year == (planner.current_year) && planner.current_semester != "SP") {
+                        text += "<div class=\"semester old\">";
+                    } else {
+                        text += "<div class=\"semester\">";
+                    }
+                    text += "<div class=\"year Spring " + data.terms[i].year.toString() + "\"><p>Spring ";
+                    text += data.terms[i].year.toString() + "</p><\/div>";
+                    
+                    text += "<\/div>"; //semester div
+                    i++;
 
-                //SU
-                if (planner.catalog_year + 1 < (planner.current_year - 1)) {
-                    text += "<div class=\"semester old\">";
-                } else if (planner.catalog_year + 1 == (planner.current_year - 1) && (planner.current_semester == "SU" || planner.current_semester == "FA")) {
-                    text += "<div class=\"semester old\">";
-                } else {
-                    text += "<div class=\"semester\">";
+                    //SU
+                    if (data.terms[i].year < (planner.current_year)) {
+                        text += "<div class=\"semester old\">";
+                    } else if (data.terms[i].year == (planner.current_year) && (planner.current_semester == "SU" || planner.current_semester == "FA")) {
+                        text += "<div class=\"semester old\">";
+                    } else {
+                        text += "<div class=\"semester\">";
+                    }
+                    text += "<div class=\"year Summer " + data.terms[i].year.toString();
+                    text += "\"><p>Summer " + data.terms[i].year.toString() + "</p><\/div>";
+                    
+                    text += "<\/div>"; //semester div
+                    text += "<\/div>"; //row div
                 }
-                text += "<div class=\"year Summer " + (planner.catalog_year + 1).toString();
-                text += "\"><p>Summer " + (planner.catalog_year + 1).toString() + "</p><\/div>";
-                
-                text += "<\/div>"; //semester div
-                text += "<\/div>"; //row div
             }
             ur.innerHTML = text;
 
