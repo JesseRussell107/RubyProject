@@ -33,6 +33,9 @@ class PlansController < ApplicationController
     @t = Term.where(semester: add_params[:semester], year: add_params[:year], plan_id: add_params[:id]).take
     @c = Course.where(course_id: add_params[:courseid]).take
     @tc = TermCourse.create(:term_id =>  @t.id, :course_id => @c.id)
+    if request.xhr?
+      render :json => {}
+    end
   end
 
   # POST /plans/1/deleteCourse
@@ -41,6 +44,9 @@ class PlansController < ApplicationController
     @c = Course.where(course_id: delete_params[:courseid]).take
     @tc = TermCourse.where(term_id: @t.id, course_id: @c.id).take
     @tc.destroy
+    if request.xhr?
+      render :json => {}
+    end
   end
 
   # POST /plans/1/addTerm

@@ -323,11 +323,14 @@ function onAddClick() {
     $.ajax({
         method: "POST",
         url: urlString,
+        dataType: "json",
         data: {
             semester: semYear[0],
             year: semYear[1],
             courseid: cid
-        }
+        },
+        success: function() {$("#result").text("Add Successful")},
+        error: function() {$("#result").text("Error: Add Unsuccessful - Contact the Admin")}
     });
 
     //0 is id, 1 is name, 2 is credits
