@@ -298,7 +298,7 @@ function initializeUR() {
             var termstring;
             $.each(data.terms, function (index, element) {
                 var holder = element.semester + " " + element.year.toString();
-                termstring += "<option value='" + holder + "'>" + holder + "</option>";
+                termstring += "<option class='" + holder + "' value='" + holder + "'>" + holder + "</option>";
             });
             var coursestring;
             $.each(data.courses, function (index, element) {
@@ -443,9 +443,9 @@ $(document).on("click", "#add", function () {
     $("#UR > .row").last().after(text);
 
     var termSelect = document.getElementById("termSelect");
-    var option = "<option value=\'Fall " + yr + "'>Fall " + (yr - 1) + "</option>";
-    option += "<option value=\'Spring " + yr + "'>Spring " + yr + "</option>";
-    option += "<option value=\'Summer " + yr + "'>Summer " + yr + "</option>";
+    var option = "<option class='Fall " + (yr - 1) + "' value=\'Fall " + (yr - 1) + "'>Fall " + (yr - 1) + "</option>";
+    option += "<option class='Spring " + yr + "' value=\'Spring " + yr + "'>Spring " + yr + "</option>";
+    option += "<option class='Summer " + yr + "' value=\'Summer " + yr + "'>Summer " + yr + "</option>";
     termSelect.innerHTML += option;
 
 });
@@ -472,9 +472,11 @@ $(document).on("click", "#remove", function () {
             }
         });
         $row[0].remove();
-        $("option .Fall." + yr[2]).remove();
-        $("option .Spring." + (year+1).toString()).remove();
-        $("option .Summer." + (year+1).toString()).remove();
+        var test = $("option.Fall." + yr[2]);
+        test.remove();
+        var test2 =  $("option.Spring." + (year+1).toString());
+        test2.remove();
+        $("option.Summer." + (year+1).toString()).remove();
        
     }
 });
