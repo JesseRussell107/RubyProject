@@ -30,17 +30,16 @@ class PlansController < ApplicationController
 
   # POST /plans/1/addCourse
   def addCourse
-    @t = Term.where(semester: add_params.semester, year: add_params.year, plan_id: add_params.plannum)
-    @c = Course.where(course_id: add_params.courseid)
-    @tc = TermCourse.create(:term_id =>  t.id, :course_id => c.id)
-    @tc.save
+    @t = Term.where(semester: add_params[:semester], year: add_params[:year], plan_id: add_params[:id]).take
+    @c = Course.where(course_id: add_params[:courseid]).take
+    @tc = TermCourse.create(:term_id =>  @t.id, :course_id => @c.id)
   end
 
   # POST /plans/1/deleteCourse
   def deleteCourse
-    @t = Term.where(semester: delete_params.semester, year: delete_params.year, plan_id: delete_params.plannum)
-    @c = Course.where(course_id: delete_params.courseid)
-    @tc = TermCourse.where(term_id: t.id, course_id: c.id)
+    @t = Term.where(semester: delete_params[:semester], year: delete_params[:year], plan_id: delete_params[:id]).take
+    @c = Course.where(course_id: delete_params[:courseid]).take
+    @tc = TermCourse.where(term_id: @t.id, course_id: @c.id).take
     @tc.destroy
   end
   
@@ -114,11 +113,11 @@ class PlansController < ApplicationController
     end
 
     def delete_params
-      params.require(:plan).permit(:semester, :year, :courseid, :plannum)
+      params.permit(:semester, :year, :courseid, :id)
     end
     
     def add_params
-      params.require(:plan).permit(:semester, :year, :courseid, :plannum)
+      params.permit(:semester, :year, :courseid, :id)
     end
     
 
