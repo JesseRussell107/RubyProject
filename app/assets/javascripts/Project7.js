@@ -331,8 +331,14 @@ function onAddClick() {
             year: semYear[1],
             courseid: cid
         },
-        success: function () { $("#result").text("Add Successful") },
-        error: function () { $("#result").text("Error: Add Unsuccessful - Contact the Admin") }
+        success: function () {
+            $("#result").text("Add Successful");
+            setTimeout(function(){$("#result").text("");}, 2000);
+        },
+        error: function () {
+            $("#result").text("Error: Add Unsuccessful - Contact the Admin")
+            setTimeout(function(){$("#result").text("");}, 2000);
+        }
     });
 
     //0 is id, 1 is name, 2 is credits
@@ -363,6 +369,14 @@ function onDelete(semester, year, courseid, thing) {
             semester: semester,
             year: year,
             courseid: courseid
+        },
+        success: function () {
+            $("#result").text("Delete Successful");
+            setTimeout(function(){$("#result").text("");}, 2000);
+        },
+        error: function () {
+            $("#result").text("Error: Delete Unsuccessful - Contact the Admin")
+            setTimeout(function(){$("#result").text("");}, 2000);
         }
     });
     var daddy = thing.parentElement;

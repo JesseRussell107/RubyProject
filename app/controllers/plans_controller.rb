@@ -54,6 +54,9 @@ class PlansController < ApplicationController
     Term.create(semester: "Spring", year: term_params[:year], plan_id: term_params[:id])
     Term.create(semester: "Summer", year: term_params[:year], plan_id: term_params[:id])
     Term.create(semester: "Fall", year: term_params[:year].to_i-1, plan_id: term_params[:id])
+    if request.xhr?
+      render :json => {}
+    end
   end
 
   # POST /plans/1/deleteTerm
@@ -61,6 +64,9 @@ class PlansController < ApplicationController
     Term.where(semester: "Spring", year: term_params[:year], plan_id: term_params[:id]).take.destroy
     Term.where(semester: "Summer", year: term_params[:year], plan_id: term_params[:id]).take.destroy
     Term.where(semester: "Fall", year: term_params[:year].to_i-1, plan_id: term_params[:id]).take.destroy
+    if request.xhr?
+      render :json => {}
+    end
   end  
 
   # POST /plans
