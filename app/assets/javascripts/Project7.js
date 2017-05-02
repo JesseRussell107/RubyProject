@@ -403,19 +403,6 @@ $(document).on("click", "#add", function () {
     text += "<div class=\"year Fall " + yr + "\"><p>Fall " + yr + "<\/p><\/div>";
     text += "<\/div>"; //semester div
 
-<<<<<<< HEAD
-    termSelect.append(option);
-    $.ajax({
-        method: "POST",
-        url: urlString,
-        data: {
-            semester: "Fall",
-            year: yr
-        }
-    });
-=======
->>>>>>> 3850589a27860e9c17d6f5e3d79ded51efb1bfde
-
     yr++;
     //SP
     if (yr < currYear) {
