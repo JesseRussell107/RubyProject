@@ -340,7 +340,7 @@ function onAddClick() {
 
     var yearDiv = document.getElementsByClassName("year " + term);
     var daddy = yearDiv[0].parentNode;
-    var text = "<div class=\"course " + term;
+    var text = "<div class=\"course " + term + " ";
     text += courseinfo[0] + "\"><div class=\"delete\" onclick=\"javascript:onDelete('" + semYear[0] + "', '";
     text += semYear[1] + "', '" + cid + "', this);\">X</div><div class=\"name\">";
     text += courseinfo[0] + " - ";
@@ -367,8 +367,9 @@ function onDelete(semester, year, courseid, thing) {
     });
     var daddy = thing.parentElement;
     daddy.outerHTML = "";
-
-    document.getElementById(courseid).className = "missing";
+    if ($(".course."+courseid).length == 0) {
+        document.getElementById(courseid).className = "missing";
+    }
 };
 
 function checkIfInPlan(id, courseList) {
