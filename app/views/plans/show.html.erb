@@ -14,15 +14,13 @@
         <div id="currentYear" style="display: none"><%= DateTime.now.year %></div>
         
         <div id="currentSemester" style="display: none">
-            <%= 
-            if (Date.today.month < 5)
-                "SP"
-            elsif (Date.today.month < 8)
-                "SU"
-            else
-                "FA"
-            end
-            %>
+            <% if (Date.today.month < 5)%>
+                <%="SP"%>
+            <% elsif (Date.today.month < 8) %>
+                <%="SU"%>
+            <% else %>
+                <%="FA"%>
+            <% end %>
         </div>
         <div id="UR">
             <div id="remove" class="yearButton">- Remove Year</div>

@@ -386,17 +386,16 @@ $(document).on("click", "#add", function () {
     var year = $(".year").last();
     var yearClasses = year.attr("class").split(/\s+/);
     var yr = yearClasses[2];
-    $("#UR").append(yr)
     var text = "";
     text += "<div class=\"row\">";
     var currYear = $("#currentYear").text();
-    var currSem = $("#currentSemester").text();
+    var currSem = $("#currentSemester").text().replace(/\s+/g, '');
     //FA
     if (yr < currYear) {
         text += "<div class=\"semester old\">";
     } else if (yr == currYear && currSem != "FA") {
         text += "<div class=\"semester\">";
-    } else if (yr == currYer && currSem == "FA") {
+    } else if (yr == currYear && currSem == "FA") {
         text += "<div class=\"semester old\">";
     } else {
         text += "<div class=\"semester\">";
@@ -404,6 +403,7 @@ $(document).on("click", "#add", function () {
     text += "<div class=\"year Fall " + yr + "\"><p>Fall " + yr + "<\/p><\/div>";
     text += "<\/div>"; //semester div
 
+<<<<<<< HEAD
     termSelect.append(option);
     $.ajax({
         method: "POST",
@@ -413,6 +413,8 @@ $(document).on("click", "#add", function () {
             year: yr
         }
     });
+=======
+>>>>>>> 3850589a27860e9c17d6f5e3d79ded51efb1bfde
 
     yr++;
     //SP
@@ -428,14 +430,7 @@ $(document).on("click", "#add", function () {
 
     text += "<\/div>"; //semester div
 
-    $.ajax({
-        method: "POST",
-        url: urlString,
-        data: {
-            semester: "Spring",
-            year: yr
-        }
-    });
+
 
     //SU
     if (yr < currYear) {
@@ -454,10 +449,10 @@ $(document).on("click", "#add", function () {
         method: "POST",
         url: urlString,
         data: {
-            semester: "Summer",
             year: yr
         }
     });
+    $("#UR > .row").last().after(text);
 
     var termSelect = document.getElementById("termSelect");
     var option = "<option value=\'Fall " + yr + "'>Fall " + (yr - 1) + "</option>";
@@ -466,47 +461,27 @@ $(document).on("click", "#add", function () {
 
 });
 
-$(document).on(click, "#remove", function () {
-    var urlString = document.getElementById("plannum").innerHTML.toString() + "/addTerm";
-    var $row = $("#UR > .row").last().children()
+$(document).on("click", "#remove", function () {
+    var urlString = document.getElementById("plannum").innerHTML.toString() + "/deleteTerm";
+    var $row = $("#UR > .row").last();
     //rows
     var empty = true;
     //terms
-    $row.children().each(function (element) {
-        if (this.children().length != 1) {
+    $.each($row[0].children, function (element) {
+        if (this.children.length != 1) {
             empty = false;
         }
     });
     if (empty) {
-        var yr = $row.children().first().attr("class").split(" ");
+        var yr = $($row[0].children[0].children[0]).attr("class").split(" ");
+        var year = parseInt(yr[2]);
         $.ajax({
             method: "POST",
             url: urlString,
             data: {
-                semester: "Fall",
-                year: yr[2]
+                year: year + 1
             }
         });
-        $.ajax({
-            method: "POST",
-            url: urlString,
-            data: {
-                semester: "Spring",
-                year: yr[2] + 1
-            }
-        });
-        $.ajax({
-            method: "POST",
-            url: urlString,
-            data: {
-                semester: "Summer",
-                year: yr[2] + 1
-            }
-        });
-        $row.remove();
+        $row[0].remove();
     }
-
-
-
-
 });
