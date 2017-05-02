@@ -42,7 +42,16 @@ class PlansController < ApplicationController
     @tc = TermCourse.where(term_id: @t.id, course_id: @c.id).take
     @tc.destroy
   end
-  
+
+  # POST /plans/1/addTerm
+  def addTerm
+    Term.create(semester: term_params[:semester], year: term_params[:year], plan_id: term_params[:id])
+  end
+
+  # POST /plans/1/deleteTerm
+  def deleteTerm
+    Term.where(semester: term_params[:semester], year: term_params[:year], plan_id: term_params[:id]).destroy
+  end  
 
   # POST /plans
   # POST /plans.json
@@ -62,7 +71,6 @@ class PlansController < ApplicationController
         format.json { render json: @plan.errors, status: :unprocessable_entity }
       end
     end
-
   end
 
   # PATCH/PUT /plans/1
@@ -118,6 +126,10 @@ class PlansController < ApplicationController
     
     def add_params
       params.permit(:semester, :year, :courseid, :id)
+    end
+
+    def term_params
+      params.permit(:semester, :year, :id)
     end
     
 

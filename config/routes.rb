@@ -3,6 +3,8 @@ Rails.application.routes.draw do
     member do
       post 'deleteCourse'
       post 'addCourse'
+      post 'addTerm'
+      post 'deleteTerm'
     end
   end
   resources :admin
